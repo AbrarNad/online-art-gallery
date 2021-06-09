@@ -17,6 +17,8 @@ const Home = () => {
         })
     }
 
+    console.log(products);
+
     useEffect(()=>{
         getProduct();
     },[] );

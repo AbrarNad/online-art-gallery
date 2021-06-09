@@ -17,6 +17,8 @@ const Drawings = () => {
         })
     }
 
+    console.log(products);
+
     useEffect(()=>{
         getProduct();
     },[] );

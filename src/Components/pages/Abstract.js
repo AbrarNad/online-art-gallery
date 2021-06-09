@@ -16,7 +16,8 @@ const Abstract = () => {
             setProducts(data);
         })
     }
-
+    console.log(products);
+    
     useEffect(()=>{
         getProduct();
     },[] );

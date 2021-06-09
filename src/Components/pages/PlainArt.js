@@ -17,6 +17,8 @@ const PlainArt = () => {
         })
     }
 
+    console.log(products);
+
     useEffect(()=>{
         getProduct();
     },[] );

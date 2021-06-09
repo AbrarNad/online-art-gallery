@@ -17,6 +17,8 @@ const OilPaint = () => {
         })
     }
 
+    console.log(products);
+
     useEffect(()=>{
         getProduct();
     },[] );
