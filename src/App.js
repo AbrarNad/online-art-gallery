@@ -10,6 +10,9 @@ import Abstract from "./Components/pages/paintings/Abstract";
 import Drawings from "./Components/pages/paintings/Drawings";
 import OilPaint from "./Components/pages/paintings/OilPaint";
 import PlainArt from "./Components/pages/paintings/PlainArt";
+import Login from "./Components/pages/users/login";
+import SignUp from "./Components/pages/users/user/anotherRegister";
+import SignInSide from "./Components/pages/users/user/anotherLogin";
 
 const App = () => {
 
@@ -23,9 +26,10 @@ const App = () => {
                         <Route path="/Drawings" component={Drawings} />
                         <Route path="/OilPaint" component={OilPaint} />
                         <Route path="/PlainArt" component={PlainArt} />
-                    
                     </Switch>
-                </Router>
+            </Router>
+            <SignUp/>
+            <SignInSide/>
         </div>
     )
 }
