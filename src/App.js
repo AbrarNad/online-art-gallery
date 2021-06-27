@@ -10,9 +10,8 @@ import Abstract from "./Components/pages/paintings/Abstract";
 import Drawings from "./Components/pages/paintings/Drawings";
 import OilPaint from "./Components/pages/paintings/OilPaint";
 import PlainArt from "./Components/pages/paintings/PlainArt";
-import Login from "./Components/pages/users/login";
-import SignUp from "./Components/pages/users/user/anotherRegister";
-import SignInSide from "./Components/pages/users/user/anotherLogin";
+import SignUp from "./Components/pages/users/user/register";
+import SignIn from "./Components/pages/users/user/login";
 
 const App = () => {
 
@@ -29,7 +28,7 @@ const App = () => {
                     </Switch>
             </Router>
             <SignUp/>
-            <SignInSide/>
+            <SignIn/>
         </div>
     )
 }

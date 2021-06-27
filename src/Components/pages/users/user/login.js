@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useForm, Controller } from 'react-hook-form';
 
 function Copyright() {
   return (
@@ -57,8 +58,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignIn() {
   const classes = useStyles();
+  const { register, handleSubmit, control} = useForm();
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -72,19 +74,21 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit((data)=> alert(JSON.stringify(data)))}>
             <TextField
+            {...register('username')}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
+             {...register('password')}
               variant="outlined"
               margin="normal"
               required
@@ -95,9 +99,16 @@ export default function SignInSide() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            <Controller
+              name='remember'
+              control={control}
+              defaultValue={false}
+              render={({ field }) => (
+                  <FormControlLabel
+                      control={<Checkbox {...field} />}
+                      label='Remember me'
+                  />
+              )}
             />
             <Button
               type="submit"
