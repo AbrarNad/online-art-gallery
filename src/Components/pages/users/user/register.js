@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const { register, handleSubmit, control, formState: { errors }} = useForm();
+  //const [submitting, setSubmitting] = useState<Boolean>(false);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -57,7 +59,32 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit((data)=> alert(JSON.stringify(data)))}>
+        <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
+          //setSubmitting(true);
+          //alert(JSON.stringify(formData));
+          
+
+          const response = await fetch("http://localhost:4000/users",{
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              Name: formData.name,
+              Email: formData.email,
+              Address: formData.address,
+              Password: formData.password,
+              Location: formData.location,
+              Username: formData.username,
+            }),
+          });
+          
+          const data = await response.json();
+          alert(JSON.stringify((data)));
+
+          //setSubmitting(false);
+
+          })}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -165,6 +192,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+
           >
             Sign Up
           </Button>
