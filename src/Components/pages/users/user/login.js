@@ -60,7 +60,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const { register, handleSubmit, control} = useForm();
+  const { register, handleSubmit, control, formState: { errors }} = useForm({
+    mode: 'onBlur',
+    defaultValues: {},
+  });
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -74,9 +77,9 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit((data)=> alert(JSON.stringify(data)))}>
+          <form className={classes.form} onSubmit={handleSubmit((data)=> alert(JSON.stringify(data)))}>
             <TextField
-            {...register('username')}
+            {...register('username', { required: true })}
               variant="outlined"
               margin="normal"
               required
@@ -87,8 +90,9 @@ export default function SignIn() {
               autoComplete="username"
               autoFocus
             />
+             {errors.username?.type === 'required' && "* Username is required"}
             <TextField
-             {...register('password')}
+             {...register('password', { required: true})}
               variant="outlined"
               margin="normal"
               required
@@ -99,6 +103,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            {errors.password?.type === 'required' && "* Please enter password"}
             <Controller
               name='remember'
               control={control}
