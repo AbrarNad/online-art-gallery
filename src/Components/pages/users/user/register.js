@@ -42,12 +42,16 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  conditional: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default function SignUp() {
   const classes = useStyles();
-  const { register, handleSubmit, control, formState: { errors }} = useForm();
-  //const [submitting, setSubmitting] = useState<Boolean>(false);
+  const { register, handleSubmit, formState: { errors }} = useForm();
+  const [submitting, setSubmitting] = useState(false);
+  const [isArtist, setArtist] = useState(false);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,32 +64,83 @@ export default function SignUp() {
           Sign up
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
-          //setSubmitting(true);
-          //alert(JSON.stringify(formData));
-          
+            if(isArtist){
+            setSubmitting(true);
+            alert(JSON.stringify(formData));
+            
 
-          const response = await fetch("http://localhost:4000/users",{
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              Name: formData.name,
-              Email: formData.email,
-              Address: formData.address,
-              Password: formData.password,
-              Location: formData.location,
-              Username: formData.username,
-            }),
-          });
-          
-          const data = await response.json();
-          alert(JSON.stringify((data)));
+              const response = await fetch("http://localhost:4000/artists",{
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  Name: formData.name,
+                  Email: formData.email,
+                  Address: formData.address,
+                  Password: formData.password,
+                  Location: formData.location,
+                  Username: formData.username,
+                  Bio: formData.bio,
+                  Education: formData.education,
+                }),
+              });
+            
+            const data = await response.json();
+            alert(JSON.stringify((data)));
+            console.log(isArtist);
 
-          //setSubmitting(false);
+            setSubmitting(false);
+            }else{
+              setSubmitting(true);
+            alert(JSON.stringify(formData));
+            
+
+              const response = await fetch("http://localhost:4000/users",{
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  Name: formData.name,
+                  Email: formData.email,
+                  Address: formData.address,
+                  Password: formData.password,
+                  Location: formData.location,
+                  Username: formData.username,
+                }),
+              });
+            
+            const data = await response.json();
+            alert(JSON.stringify((data)));
+            console.log(isArtist);
+
+            setSubmitting(false);
+            }
 
           })}>
           <Grid container spacing={2}>
+            <Grid xs={12}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="loginaslabel">&nbsp;&nbsp;Sign Up as</InputLabel>
+                <Select
+                  labelId="loginas"
+                  id="loginas"
+                  name="loginas"
+                  variant="outlined"
+                  label="loginas"
+                  value={isArtist}
+                  onChange={(e) => { setArtist(e.target.value)}}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={false}>Basic User</MenuItem>
+                  <MenuItem value={true}>Artist</MenuItem>
+                </Select>
+                {errors.location?.type === 'required' && <span>* Location is required</span>}
+              </FormControl>
+            </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="name"
@@ -154,6 +209,7 @@ export default function SignUp() {
                 fullWidth
                 id="address"
                 label="Address"
+                rows={2}
               />
               {errors.address?.type === 'required' && "* Address is required"}
               {errors.address && errors.address.type === "maxLength" && <span>* Maximum allowed length exceeded(200)</span> }
@@ -183,7 +239,49 @@ export default function SignUp() {
                 {errors.location?.type === 'required' && <span>* Location is required</span>}
               </FormControl>
             </Grid>
-            
+            <Grid xs={12} className={classes.conditional}>
+            {
+              isArtist?(
+                <>
+                  <TextField
+                  multiline
+                  autoComplete="education"
+                  {...register("education", { required: false, maxLength: 300 })}
+                  name="education"
+                  variant="outlined"
+                  fullWidth
+                  id="education"
+                  label="Education"
+                  rows={1}
+                />
+                {errors.education && errors.education.type === "maxLength" && <span>* Maximum allowed length exceeded(300)</span> }
+                </>
+              ):
+              ( null)
+            }
+            </Grid>
+            <Grid xs={12} className={classes.conditional}>
+            {
+              isArtist?(
+                <>
+                  <TextField
+                  multiline
+                  autoComplete="bio"
+                  {...register("bio", { required: false, minLength: 128, maxLength: 500 })}
+                  name="bio"
+                  variant="outlined"
+                  fullWidth
+                  id="bio"
+                  label="Biography"
+                  rows={3}
+                />
+                  {errors.bio && errors.bio.type === "minLength" && <span>* Minimum allowed length is 128 characters!</span> }
+                  {errors.bio && errors.bio.type === "maxLength" && <span>* Maximum allowed length exceeded(500)</span> }
+                </>
+              ):
+              ( null)
+            }
+            </Grid>
           </Grid>
 
           <Button
@@ -192,7 +290,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-
+            disabled={submitting}
           >
             Sign Up
           </Button>
