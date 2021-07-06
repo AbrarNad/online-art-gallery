@@ -12,6 +12,7 @@ import OilPaint from "./Components/pages/paintings/OilPaint";
 import PlainArt from "./Components/pages/paintings/PlainArt";
 import SignUp from "./Components/pages/users/user/register";
 import SignIn from "./Components/pages/users/user/login";
+import AddProduct from "./Components/Products/add";
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
             </Router>
             <SignUp/>
             <SignIn/>
+            <AddProduct/>
         </div>
     )
 }

@@ -15,6 +15,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { ToastContainer, toast } from 'material-react-toastify';
+import 'material-react-toastify/dist/ReactToastify.css';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +55,9 @@ export default function SignUp() {
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [submitting, setSubmitting] = useState(false);
   const [isArtist, setArtist] = useState(false);
+  const notify = () => toast.success("New product added!");
+  const notifyUser = () => toast.success("New User Created!");
+  const notifyArtist = () => toast.success("New Artist Created!");
 
   return (
     <Container component="main" maxWidth="xs">
@@ -66,7 +72,7 @@ export default function SignUp() {
         <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
             if(isArtist){
             setSubmitting(true);
-            alert(JSON.stringify(formData));
+            //alert(JSON.stringify(formData));
             
 
               const response = await fetch("http://localhost:4000/artists",{
@@ -86,14 +92,15 @@ export default function SignUp() {
                 }),
               });
             
-            const data = await response.json();
-            alert(JSON.stringify((data)));
-            console.log(isArtist);
+              const data = await response.json();
+              //alert(JSON.stringify((data)));
+              console.log(isArtist);
+              notifyArtist();
 
             setSubmitting(false);
             }else{
               setSubmitting(true);
-            alert(JSON.stringify(formData));
+            //alert(JSON.stringify(formData));
             
 
               const response = await fetch("http://localhost:4000/users",{
@@ -110,12 +117,13 @@ export default function SignUp() {
                   Username: formData.username,
                 }),
               });
-            
-            const data = await response.json();
-            alert(JSON.stringify((data)));
-            console.log(isArtist);
+              
+              const data = await response.json();
+              //alert(JSON.stringify((data)));
+              console.log(isArtist);
 
-            setSubmitting(false);
+              setSubmitting(false);
+              notifyUser();
             }
 
           })}>
