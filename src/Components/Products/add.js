@@ -153,7 +153,7 @@ export default function AddProduct() {
             <Grid item xs={12} >
               <TextField
                 autoComplete="artistname"
-                {...register("artistname", { required: true, maxLength: 20, pattern: /^[A-Za-z0-9]+$/ })}
+                {...register("artistname", { required: true, maxLength: 20, pattern: /^[A-Za-z0-9 ]+$/ })}
                 name="artistname"
                 variant="outlined"
                 fullWidth
@@ -162,7 +162,7 @@ export default function AddProduct() {
               />
               {errors.artistname?.type === 'required' && "* Artist name is required"}
               {errors.artistname && errors.artistname.type === "maxLength" && <span>* Maximum allowed length exceeded(20)</span> }
-              {errors.artistname && errors.artistname.type === "pattern" && <span>* Artist Name can only contain alphanumeric characters</span> }
+              {errors.artistname && errors.artistname.type === "pattern" && <span>* Artist Name can only contain alphanumeric characters and space</span> }
             </Grid>
             <Grid xs={12}>
               <FormControl className={classes.formControl}>
