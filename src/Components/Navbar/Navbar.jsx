@@ -1,11 +1,14 @@
 import React from "react";
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from "@material-ui/core";
-import { Shop, ShoppingCart } from "@material-ui/icons";
+import { Link, Shop, ShoppingCart } from "@material-ui/icons";
 import logo from "../../assets/gallery.png"
 import { MenuList} from "./MenuList";
 import useStyles from "./styles";
 import "./Navbar.css";
 import { NavLink} from "react-router-dom";
+import { Button } from "@material-ui/core";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Navbar = () => {
     const classes = useStyles();
@@ -34,6 +37,11 @@ const Navbar = () => {
                                 <ShoppingCart/>
                             </Badge>
                         </IconButton>
+                        
+                        <a className="btn btn-primary rounded-3 btn-light" href="/signup" role="button">Sign Up</a>
+                        <a className="btn btn-primary btn-light" href="/signin" role="button">Sign In</a>
+                        <a className="btn btn-primary btn-light" href="/addprod" role="button">Add Product</a>
+                        
                     </div>
                 </Toolbar>
             </AppBar>

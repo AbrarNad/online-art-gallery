@@ -1,4 +1,6 @@
 import React,{ useState, useEffect} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import Products from './Components/Products/Products';
 // import Navbar from "./Components/Navbar/Navbar";
 
@@ -13,11 +15,13 @@ import PlainArt from "./Components/pages/paintings/PlainArt";
 import SignUp from "./Components/pages/users/user/register";
 import SignIn from "./Components/pages/users/user/login";
 import AddProduct from "./Components/Products/add";
+import { Container } from 'react-bootstrap';
+import ProductDetail from './Components/pages/ProductDetail';
 
 const App = () => {
 
     return (
-        <div className="container">
+        <div>
             <Router>
                 <Navbar/>
                     <Switch>
@@ -26,11 +30,12 @@ const App = () => {
                         <Route path="/Drawings" component={Drawings} />
                         <Route path="/OilPaint" component={OilPaint} />
                         <Route path="/PlainArt" component={PlainArt} />
+                        <Route path="/products/:id" component={ProductDetail}/>
+                        <Route path="/signup" component={SignUp}/>
+                        <Route path="/signin" component={SignIn}/>
+                        <Route path="/addprod" component={AddProduct}/>
                     </Switch>
             </Router>
-            <SignUp/>
-            <SignIn/>
-            <AddProduct/>
         </div>
     )
 }
