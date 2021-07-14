@@ -123,6 +123,7 @@ export default function AddProduct() {
                     Style: formData.style,
                     Material: formData.Material,
                     images : imageurls,
+                    Roomid: 1,
                   }),
                 });
               

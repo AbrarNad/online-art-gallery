@@ -48,9 +48,6 @@ const Home = () => {
         <div>
             <JumbotronExample/>
             {productList}
-            <SignUp/>
-            <SignIn/>
-            <AddProduct/>
         </div>
     );
 

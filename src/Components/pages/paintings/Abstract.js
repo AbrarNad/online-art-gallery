@@ -9,7 +9,7 @@ const Abstract = () => {
         Axios({
             method: "GET",
             withCredentials: true,
-            url:"http://localhost:4000/products/category/Abstract Art"      //this is API url
+            url:"http://localhost:4000/products/style/Abstract"      //this is API url
         }).then((res)=>{
             //console.log(res.data);
             const {data} = res;
