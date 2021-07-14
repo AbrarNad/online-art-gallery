@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import Products from "../../Products/Products";
+import Products from '../../Products/ProductsBootstrap';
 import Axios from "axios";
 
 const Abstract = () => {
@@ -16,14 +16,14 @@ const Abstract = () => {
             setProducts(data);
         })
     }
-    console.log(products);
+    //console.log(products);
     
     useEffect(()=>{
         getProduct();
     },[] );
 
     return <div>
-        <Products products={products}/>
+        <Products productData={products}/>
     </div>
 }
 

@@ -159,36 +159,34 @@ function Product({ product }){
 
 function Products({ productData }){
 
-  if(productData.length == 0) return (
+  /* if(productData.length == 0) return (
     <div>
 
     </div>
-  );
-  
-  else{
-    const products = productData.map((product, i) => 
-    {
-      return (
-        <div className="col-lg-3 col-md-4 col-sm-6" style={{marginTop:'10px'}}>
+  ); */
+
+  const products = productData.map((product, i) => 
+  {
+    return (
+      <div className="col-lg-3 col-md-4 col-sm-6" style={{marginTop:'10px'}}>
+        <Product product={product} key = {i}/>
+      </div>
+    );
+    /* return (
+        <div style={{marginTop:'10px'}}>
           <Product product={product} key = {i}/>
         </div>
-      );
-      /* return (
-          <div style={{marginTop:'10px'}}>
-            <Product product={product} key = {i}/>
-          </div>
-      ); */
-    }
-    );
-    return (
-      <div className="container">
-        <div className="row" style={{margin:'70px 0px 0px 0px'}}>
-          {products}
-        </div>
-      </div>
-      
-    );
+    ); */
   }
+  );
+  return (
+    <div className="container">
+      <div className="row" style={{margin:'70px 0px 0px 0px'}}>
+        {products}
+      </div>
+    </div>
+    
+  );
   
   /* return (
     <div>
