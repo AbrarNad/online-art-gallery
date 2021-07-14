@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react';
-import Products from "../../Products/Products";
+import Products from '../../Products/ProductsBootstrap';
 import Axios from "axios";
 
 const Drawings = () => {
@@ -24,7 +24,7 @@ const Drawings = () => {
     },[] );
 
     return <div>
-        <Products products={products}/>
+        <Products productData={products}/>
     </div>
 }
 
