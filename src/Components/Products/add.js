@@ -142,6 +142,7 @@ export default function AddProduct() {
                     Material: formData.Material,
                     images : imageurls,
                     Roomid: 1,
+                    Tags: tags,
                   }),
                 });
               
