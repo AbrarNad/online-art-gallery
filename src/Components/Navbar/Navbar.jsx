@@ -8,7 +8,7 @@ import "./Navbar.css";
 import { NavLink} from "react-router-dom";
 import { Button } from "@material-ui/core";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Avatar from '@material-ui/core/Avatar';
 
 const Navbar = () => {
     const classes = useStyles();
@@ -37,11 +37,15 @@ const Navbar = () => {
                                 <ShoppingCart/>
                             </Badge>
                         </IconButton>
-                        
                         <a className="btn btn-primary rounded-3 btn-light" href="/signup" role="button">Sign Up</a>
                         <a className="btn btn-primary btn-light" href="/signin" role="button">Sign In</a>
                         <a className="btn btn-primary btn-light" href="/addprod" role="button">Add Product</a>
                         
+                    </div>
+                    <div className={classes.button}>
+                        <IconButton   href="/account" aria-label="User Account" color="inherit">
+                            <Avatar>U</Avatar>
+                        </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>

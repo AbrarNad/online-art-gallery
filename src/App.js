@@ -17,6 +17,7 @@ import SignIn from "./Components/pages/users/user/login";
 import AddProduct from "./Components/Products/add";
 import { Container } from 'react-bootstrap';
 import ProductDetail from './Components/pages/ProductDetail';
+import Account from './Components/pages/users/user/account';
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
                         <Route path="/signup" component={SignUp}/>
                         <Route path="/signin" component={SignIn}/>
                         <Route path="/addprod" component={AddProduct}/>
+                        <Route path="/account" component={Account}/>
                     </Switch>
             </Router>
         </div>
