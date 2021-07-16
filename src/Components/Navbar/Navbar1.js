@@ -2,6 +2,9 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.css'
 import './Navbar.css';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Link } from "@material-ui/core";
+import { BsFillPersonFill } from "react-icons/bs";
 
 const Navbar = () => {
 
@@ -64,8 +67,18 @@ const Navbar = () => {
               </li> */}
           </ul>
           <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            {/* <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button> */}
+            <a className="btn rounded-3 btn-outline-danger" href="/signup" role="button" style={{margin: '5px'}}>Sign Up</a>
+            <a className="btn btn-outline-danger" href="/signin" role="button" style={{margin: '5px'}}>Sign In</a>
+            <a className="btn btn-outline-danger" href="/addprod" role="button" style={{margin: '5px'}}>Add Product</a>
+            <div style={{marginTop: '5px', marginLeft: '15px'}}>
+              <Link href="/user/account">
+                <AccountCircleIcon></AccountCircleIcon>
+              </Link> 
+            </div>
+
+                       
           </form>
         </div>
       </div>

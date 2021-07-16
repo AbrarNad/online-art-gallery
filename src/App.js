@@ -17,6 +17,7 @@ import ProductDetail from './Components/pages/ProductDetail';
 import Navbar from './Components/Navbar/Navbar1';
 import Material from './Components/pages/drawings/material';
 import Tag from './Components/pages/tags/tags';
+import Account from './Components/pages/users/user/account';
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path="/signin" component={SignIn}/>
                         <Route path="/addprod" component={AddProduct}/>
                         <Route path="/Tags/:tag" component={Tag}/>
+                        <Route path="/user/account" component={Account}/>
                     </Switch>
             </Router>
         </div>
