@@ -410,29 +410,3 @@ export default function AddProduct() {
     </Container>
   );
 }
-
-
-
-
-
-const topTags = [
-  { title: 'art'},
-  { title: 'rain'},
-  { title: 'nature'},
-  { title: 'bnw' },
-  { title: 'country' },
-  { title: 'profile'},
-  { title: 'sea' },
-  { title: 'city'},
-  { title: 'mountain' },
-  { title: 'forest' },
-  { title: 'desert' },
-  { title: 'countryside' },
-  { title: 'market' },
-  { title: 'street' },
-  { title: 'graffiti'},
-  { title: 'sketch' },
-  { title: 'stencil'},
-  { title: 'cloudy'},
-  { title: 'storm'},
-];
