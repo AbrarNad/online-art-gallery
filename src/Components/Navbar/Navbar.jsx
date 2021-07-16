@@ -43,7 +43,7 @@ const Navbar = () => {
                         
                     </div>
                     <div className={classes.button}>
-                        <IconButton   href="/account" aria-label="User Account" color="inherit">
+                        <IconButton   href="/user/account" aria-label="User Account" color="inherit">
                             <Avatar>U</Avatar>
                         </IconButton>
                     </div>

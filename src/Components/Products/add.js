@@ -20,6 +20,9 @@ import { green } from '@material-ui/core/colors';
 import fileService from "../../services/fileService";
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
+import Chip from '@material-ui/core/Chip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import './tagstyles.css'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function AddProduct() {
   const classes = useStyles();
   const { register, handleSubmit, formState: { errors }} = useForm();
@@ -70,6 +74,20 @@ export default function AddProduct() {
   const types = ['image/png','image/jpeg', 'image/jpg', 'image/tiff'];
   const [files, setFiles] = useState(null);
   const [fileError, setFileError] = useState(null);
+  const[tags, setTags] = useState(["art"]);
+  const addTag = (e) => {
+    if (e.key === "Enter") {
+      if (e.target.value.length > 0) {
+        setTags([...tags, e.target.value]);
+        e.target.value = "";
+      }
+    }
+  };
+  const removeTag = (removedTag) => {
+    const newTags = tags.filter((tag) => tag !== removedTag);
+    setTags(newTags);
+  };
+
 
   const changeImageHandler = (e) => {
     let selected = e.target.files[0];
@@ -287,6 +305,26 @@ export default function AddProduct() {
             </Grid>
             <Grid item xs={12}>
               <Typography component="h5" variant="h6">
+                Enter Tags
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+            <div className="App">
+              <div className="tag-container">
+                {tags.map((tag, index) => {
+                  return (
+                    <div key={index} className="tag">
+                      {tag} <span onClick={() => removeTag(tag)}>x</span>
+                    </div>
+                  );
+                })}
+
+                <input onKeyDown={addTag} />
+              </div>
+            </div>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="h5" variant="h6">
                 Enter dimensions
               </Typography>
             </Grid>
@@ -371,3 +409,29 @@ export default function AddProduct() {
     </Container>
   );
 }
+
+
+
+
+
+const topTags = [
+  { title: 'art'},
+  { title: 'rain'},
+  { title: 'nature'},
+  { title: 'bnw' },
+  { title: 'country' },
+  { title: 'profile'},
+  { title: 'sea' },
+  { title: 'city'},
+  { title: 'mountain' },
+  { title: 'forest' },
+  { title: 'desert' },
+  { title: 'countryside' },
+  { title: 'market' },
+  { title: 'street' },
+  { title: 'graffiti'},
+  { title: 'sketch' },
+  { title: 'stencil'},
+  { title: 'cloudy'},
+  { title: 'storm'},
+];

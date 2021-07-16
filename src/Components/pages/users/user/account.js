@@ -120,7 +120,7 @@ export default function Account() {
             >
                 <Grid item xs={12}>
                     <List sx={ListStyle} component="nav" aria-label="user navigation">
-                        <ListItem button component="a" href="/account">
+                        <ListItem button component="a" href="/user/account">
                             <ListItemIcon>
                                 <InfoIcon/>
                             </ListItemIcon>
