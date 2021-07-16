@@ -14,7 +14,7 @@ const Navbar = () => {
     const classes = useStyles();
     const menuList = MenuList.map(({url,title,index}) =>{
         return (
-                <NavLink to={url} activeClassName="active" key={index}  style={{ textDecoration: 'none' }}>{title}&emsp;<div className={classes.grow} /></NavLink>
+            <NavLink to={url} activeClassName="active" key={index}  style={{ textDecoration: 'none' }}>{title}&emsp;<div className={classes.grow} /></NavLink>    
         );
     });
 

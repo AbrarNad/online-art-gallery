@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import Products from './Components/Products/Products';
 // import Navbar from "./Components/Navbar/Navbar";
 
-import {Products, Navbar} from "./Components";
-import Axios from "axios";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from "./Components/pages/Home";
 import Abstract from "./Components/pages/paintings/Abstract";
@@ -15,8 +13,10 @@ import PlainArt from "./Components/pages/paintings/PlainArt";
 import SignUp from "./Components/pages/users/user/register";
 import SignIn from "./Components/pages/users/user/login";
 import AddProduct from "./Components/Products/add";
-import { Container } from 'react-bootstrap';
 import ProductDetail from './Components/pages/ProductDetail';
+import Navbar from './Components/Navbar/Navbar1';
+import Material from './Components/pages/drawings/material';
+import Tag from './Components/pages/tags/tags';
 
 const App = () => {
 
@@ -27,6 +27,7 @@ const App = () => {
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/Abstract" component={Abstract} />
+                        <Route path="/Drawings/Material/:material" component={Material}/>
                         <Route path="/Drawings" component={Drawings} />
                         <Route path="/OilPaint" component={OilPaint} />
                         <Route path="/PlainArt" component={PlainArt} />
@@ -34,6 +35,7 @@ const App = () => {
                         <Route path="/signup" component={SignUp}/>
                         <Route path="/signin" component={SignIn}/>
                         <Route path="/addprod" component={AddProduct}/>
+                        <Route path="/Tags/:tag" component={Tag}/>
                     </Switch>
             </Router>
         </div>

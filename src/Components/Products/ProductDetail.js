@@ -1,5 +1,4 @@
 
-import { ImageSearch } from '@material-ui/icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 
@@ -7,12 +6,20 @@ import React from 'react';
 function ProductDetails({ productData, artistData }){
 
   const imageList = [];
+  const tagList = [];
   if (typeof productData.images !== 'undefined') {
     console.log(productData.images);
     productData.images.map((image, i) => {
       console.log(image);
       imageList.push(<img src={image} key={i} className="img-fluid" alt="Responsive image" style={{margin:'10px'}}></img>);
     });
+    if(typeof productData.Tags !== 'undefined') {
+      tagList.push(<p class="text-center fw-bolder">Related Tags</p>)
+      productData.Tags.map((tag, i) => {
+        var tagurl = "/Tags/" + tag;
+        tagList.push(<a className="btn btn-primary rounded-3 btn-danger col-1" href={tagurl} role="button" style={{margin: '5px'}}>{tag}</a>)
+      });
+    }
     return (
       <div className="container" style={{marginTop:'50px', marginBottom:'50px'}}>
         <div className="row">
@@ -35,6 +42,10 @@ function ProductDetails({ productData, artistData }){
             <hr/>
             <p  style={{margin:'0'}}> {productData.Description}</p>
           </div>
+        </div>
+        <hr/>
+        <div className="row" style={{justifyContent: 'center', flexDirection: 'col'}}>
+          {tagList}
         </div>
       </div>
     );

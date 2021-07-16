@@ -14,7 +14,7 @@ export default function JumbotronExample() {
     </Jumbotron>
 ); */
     return (
-      <div className="jumbotron jumbotron-fluid" style={{marginTop:'70px', height:'200px'}}>
+      <div className="jumbotron jumbotron-fluid" style={{marginTop:'0px', height:'200px'}}>
         <div className="container-fluid" style={styles}>
           <h1 className="display-4 text-light">Art is life</h1>
           <hr className="my-4"/>

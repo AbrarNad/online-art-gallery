@@ -142,8 +142,9 @@ function Product({ product }){
     <Card className={classes.root}>
       <ProductHeader name = {name}/>
       <Link href={urlString}>
-        <ProductImage image = {image}/>
+          <ProductImage image = {image}/>
       </Link>
+      
       {/* <Nav.Item>
         <Nav.Link href="/"><ProductImage image = {image}/></Nav.Link>
       </Nav.Item> */}
@@ -157,7 +158,7 @@ function Product({ product }){
   );
 }
 
-function Products({ productData }){
+function Products({ productData, flag }){
 
   /* if(productData.length == 0) return (
     <div>
@@ -167,6 +168,13 @@ function Products({ productData }){
 
   const products = productData.map((product, i) => 
   {
+    if(flag === 1){
+      return (
+        <div className="col-lg-4 col-md-6 col-sm-12" style={{marginTop:'10px'}}>
+          <Product product={product} key = {i}/>
+        </div>
+      );
+    }
     return (
       <div className="col-lg-3 col-md-4 col-sm-6" style={{marginTop:'10px'}}>
         <Product product={product} key = {i}/>
@@ -181,7 +189,7 @@ function Products({ productData }){
   );
   return (
     <div className="container">
-      <div className="row" style={{margin:'70px 0px 0px 0px'}}>
+      <div className="row" style={{margin:'50px 0px 0px 0px'}}>
         {products}
       </div>
     </div>
