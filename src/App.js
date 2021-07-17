@@ -18,27 +18,32 @@ import Navbar from './Components/Navbar/Navbar1';
 import Material from './Components/pages/drawings/material';
 import Tag from './Components/pages/tags/tags';
 import Account from './Components/pages/users/user/account';
+import createBrowserHistory from 'history/createBrowserHistory';
+import NavbarSearch from './Components/Navbar/NavbarSearch';
+import Search from './Components/pages/search/search';
+
+const history = createBrowserHistory({forceRefresh:true});
 
 const App = () => {
 
     return (
         <div>
-            <Router>
+            <Router history={history}>
                 <Navbar/>
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route path="/Abstract" component={Abstract} />
-                        <Route path="/Drawings/Material/:material" component={Material}/>
-                        <Route path="/Drawings" component={Drawings} />
-                        <Route path="/OilPaint" component={OilPaint} />
-                        <Route path="/PlainArt" component={PlainArt} />
-                        <Route path="/products/:id" component={ProductDetail}/>
-                        <Route path="/signup" component={SignUp}/>
-                        <Route path="/signin" component={SignIn}/>
-                        <Route path="/addprod" component={AddProduct}/>
-                        <Route path="/Tags/:tag" component={Tag}/>
-                        <Route path="/user/account" component={Account}/>
-                    </Switch>
+                <NavbarSearch/>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/Abstract" component={Abstract} />
+                    <Route path="/Drawings/Material/:material" component={Material}/>
+                    <Route path="/Drawings" component={Drawings} />
+                    <Route path="/OilPaint" component={OilPaint} />
+                    <Route path="/PlainArt" component={PlainArt} />
+                    <Route path="/products/:id" component={ProductDetail}/>
+                    <Route path="/signup" component={SignUp}/>
+                    <Route path="/signin" component={SignIn}/>
+                    <Route path="/addprod" component={AddProduct}/>
+                    <Route path="/Tags/:tag" component={Tag}/>
+                    <Route path="/user/account" component={Account}/>
+                    <Route path="/search" component={Search}/>
             </Router>
         </div>
     )

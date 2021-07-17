@@ -196,8 +196,8 @@ export default function AddProduct() {
                   label="Catagory"
                   fullWidth
                 >
-                  <MenuItem value={"Painting"}>Painting</MenuItem>
-                  <MenuItem value={"Drawing"}>Drawing</MenuItem>
+                  <MenuItem value={"Paintings"}>Paintings</MenuItem>
+                  <MenuItem value={"Drawings"}>Drawings</MenuItem>
                 </Select>
                 {errors.style?.type === 'required' && <span>* Add a Catagory to your Art piece</span>}
               </FormControl>

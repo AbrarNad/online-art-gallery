@@ -9,7 +9,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 const Navbar = () => {
 
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img class="logo horizontal-logo" src="https://res.cloudinary.com/ramzi/image/upload/v1626363991/1917990_j4g5e1.jpg" alt="" width="30" height="24"/>
@@ -23,7 +23,7 @@ const Navbar = () => {
               <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link  dropdown-toggle" href="/Abstract" data-bs-toggle="dropdown">  Abstract Art  </a>
+              <a class="nav-link  dropdown-toggle" href="/Abstract" data-bs-toggle="dropdown">  Photography  </a>
                 <ul class="dropdown-menu">
                   <div class="container">
                       {/* <li><h8 class="text-center"><i>By Material</i></h8></li> */}
@@ -69,6 +69,7 @@ const Navbar = () => {
           <form class="d-flex">
             {/* <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
             <button class="btn btn-outline-success" type="submit">Search</button> */}
+            
             <a className="btn rounded-3 btn-outline-danger" href="/signup" role="button" style={{margin: '5px'}}>Sign Up</a>
             <a className="btn btn-outline-danger" href="/signin" role="button" style={{margin: '5px'}}>Sign In</a>
             <a className="btn btn-outline-danger" href="/addprod" role="button" style={{margin: '5px'}}>Add Product</a>

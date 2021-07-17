@@ -33,9 +33,10 @@ function ProductDetails({ productData, artistData }){
             <hr/>
             <p className="fw-lighter">Overview</p>
             <hr/>
-            <p  style={{margin:'0'}}> {productData.Subject}</p>
-            <p  style={{margin:'0'}}>Style: {productData.Style}</p>
-            <p >Material: {productData.Material}</p>
+            <p style={{margin:'0'}}>Subject: {productData.Subject}</p>
+            <p style={{margin:'0'}}>Style: {productData.Style}</p>
+            <p style={{margin:'0'}}>Material: {productData.Material}</p>
+            <p style={{margin:'0'}}>Medium: {productData.Medium}</p>
             <p ><b>Dimension: </b>{productData.Dimension}</p>
             <hr/>
             <p className="fw-lighter">Description</p>
