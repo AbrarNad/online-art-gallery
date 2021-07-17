@@ -105,7 +105,7 @@ export default function AddProduct() {
   const notifyFailed = () => toast.warning("Failed!");
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         
@@ -139,7 +139,8 @@ export default function AddProduct() {
                     Dimension: formData.width+" W x "+formData.length+" L x"+formData.depth +" D",
                     Subject: formData.subject,
                     Style: formData.style,
-                    Material: formData.Material,
+                    Material: formData.material,
+                    Medium: formData.medium,
                     images : imageurls,
                     Roomid: 1,
                     Tags: tags,
@@ -235,7 +236,7 @@ export default function AddProduct() {
               {errors.description?.type === 'required' && "* Add a description of your Art"}
               {errors.description && errors.description.type === "maxLength" && <span>* Maximum allowed length exceeded(1000)</span> }
             </Grid>
-            <Grid xs={12} sm={4}>
+            <Grid xs={12} sm={3}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="stylelabel">&nbsp;&nbsp;Style</InputLabel>
                 <Select
@@ -258,7 +259,7 @@ export default function AddProduct() {
                 {errors.style?.type === 'required' && <span>* Add a style tag to your Art piece</span>}
               </FormControl>
             </Grid>
-            <Grid xs={12} sm={4}>
+            <Grid xs={12} sm={3}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="subjectlabel">&nbsp;&nbsp;Subject</InputLabel>
                 <Select
@@ -281,7 +282,7 @@ export default function AddProduct() {
                 {errors.subject?.type === 'required' && <span>* Add a Subject tag to your Art piece</span>}
               </FormControl>
             </Grid>
-            <Grid xs={12} sm={4}>
+            <Grid xs={12} sm={3}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="mediumlabel">&nbsp;&nbsp;Medium</InputLabel>
                 <Select
@@ -302,6 +303,29 @@ export default function AddProduct() {
                   <MenuItem value={"Digital"}>Digital</MenuItem>
                 </Select>
                 {errors.medium?.type === 'required' && <span>* Add the medium of your Art piece</span>}
+              </FormControl>
+            </Grid>
+            <Grid xs={12} sm={3}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="materiallabel">&nbsp;&nbsp;Material</InputLabel>
+                <Select
+                  {...register("material", { required: true})}
+                  labelId="material"
+                  id="material"
+                  name="material"
+                  variant="outlined"
+                  label="Material"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"Paper"}>Paper</MenuItem>
+                  <MenuItem value={"Cardboard"}>Cardboard</MenuItem>
+                  <MenuItem value={"Canvas"}>Canvas</MenuItem>
+                  <MenuItem value={"Wood"}>Wood</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
+                </Select>
+                {errors.material?.type === 'required' && <span>* Add the material of your Art piece</span>}
               </FormControl>
             </Grid>
             <Grid item xs={12}>
