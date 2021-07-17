@@ -114,7 +114,7 @@ export default function AddProduct() {
         <Typography component="h1" variant="h5">
           Add an Art Piece
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
+        <form className={classes.form} onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }} onSubmit={handleSubmit(async (formData)=> {
     
               setSubmitting(true);
             //alert(JSON.stringify(formData));
