@@ -24,6 +24,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import authService from '../../../../services/authService';
 import { useHistory } from "react-router-dom";
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
+    alignItems: 'center',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -101,7 +103,7 @@ export default function Account() {
       getUserData();
   },[] );
   
-  alert(JSON.stringify(userData));
+  //alert(JSON.stringify(userData));
 
   const [submitting, setSubmitting] = useState(false);
   const notifyArtist = () => toast.success("New Artist Created!");
@@ -116,7 +118,7 @@ export default function Account() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <UpdateOutlinedIcon color='inherit'/>
+          <AccountCircleIcon color='inherit'/>
         </Avatar>
         <form 
         className={classes.form} 
@@ -189,8 +191,95 @@ export default function Account() {
                 <Grid 
                     item xs={12}
                 >
-                    <Typography component="h2" variant="h5">
+                    <Typography component="h2" variant="h4">
                         Basic Details
+                    </Typography>
+                </Grid>
+                <Grid 
+                    item xs={12}
+                    container
+                    spacing={1}
+                >
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Name: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Name} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Username: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Username} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Email Address: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Email} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Address: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Address} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Location: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Location} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    
+                    
+                </Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}>
+                  <Avatar className={classes.avatar}>
+                    <UpdateOutlinedIcon color='inherit'/>
+                  </Avatar>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography component="h2" variant="h4">
+                        Update Details
                     </Typography>
                 </Grid>
                 <Grid 
