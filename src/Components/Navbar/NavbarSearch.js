@@ -22,7 +22,7 @@ const NavbarSearch = () => {
         <a class="navbar-brand"></a>
         <form class="d-flex" action="http://localhost:3000/search/" method="GET">
           <input type="hidden" name="query" value={searchText} /> 
-          <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" value={searchText} 
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchText} 
             onChange={handleSearch}
           />
           <button class="btn btn-outline-success" type="submit">Search</button>

@@ -2,6 +2,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
+import {
+  BrowserRouter as Router,
+  Switch,
+  useLocation
+} from "react-router-dom";
+
 
 //const history = createBrowserHistory({forceRefresh:true});
 const history = createBrowserHistory();
@@ -39,11 +45,11 @@ var labelList = ["Style", "Material", "Subject", "price"];
 var newArray = [];
 
 
-function updateUrl(){
-  if(searchList.length == 0) {
+function updateUrl(location){
+  /* if(searchList.length == 0) {
     history.push("/Drawings");
     return ;
-  }
+  } */
   var str = "";
 
   if(searchList.length == 1) str = searchList[0].keyValue;
@@ -53,9 +59,9 @@ function updateUrl(){
       str += "&" + searchList[i].keyValue;
     }
   }
-  str = "?" + str;
-  var urlString = "/Drawings/" + str;
-  history.push(urlString);
+  /* str = "?" + str;
+  var urlString = location.pathname + "/" + location.search + str;
+  history.push(urlString); */
 }
 
 function filterProduct(products){
@@ -92,6 +98,10 @@ function filterProduct(products){
 
 const Checkbox = ({ products, SettingProducts }) => {
 
+  let location = useLocation();
+  console.log(location);
+  console.log(location.search);
+
   var checkBoxList = [];
   for(let i = 0; i < styleList.length; i++){
     if(i % 5 === 0) checkBoxList.push(<div><hr/><b>{labelList[i/5]}</b><hr/></div>)
@@ -101,14 +111,14 @@ const Checkbox = ({ products, SettingProducts }) => {
           let checked = event.target.checked;
           if(checked){
             searchList.push(styleList[i]);
-            updateUrl();
+            //updateUrl(location);
             filterProduct(products);
             SettingProducts(newArray);
           }
           else{
             //history.push('/Drawings');
             searchList = searchList.filter(function(el) { return !(el.keyValue === styleList[i].keyValue) });
-            updateUrl();
+            //updateUrl(location);
             filterProduct(products);
             SettingProducts(newArray);
           }

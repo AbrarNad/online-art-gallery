@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.css'
 import './Navbar.css';
@@ -7,6 +7,13 @@ import { Link } from "@material-ui/core";
 import { BsFillPersonFill } from "react-icons/bs";
 
 const Navbar = () => {
+
+
+  const [searchText, setSearchText] = useState("");
+
+  function handleSearch(event) {
+    setSearchText(event.target.value);
+  }
 
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -66,7 +73,11 @@ const Navbar = () => {
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> */}
           </ul>
-          <form class="d-flex">
+          <form class="d-flex" action="http://localhost:3000/search/" method="GET">
+            <input type="hidden" name="query" value={searchText} /> 
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchText} 
+              onChange={handleSearch}
+            />
             {/* <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
             <button class="btn btn-outline-success" type="submit">Search</button> */}
             

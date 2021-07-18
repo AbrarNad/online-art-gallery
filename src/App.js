@@ -30,7 +30,7 @@ const App = () => {
         <div>
             <Router history={history}>
                 <Navbar/>
-                <NavbarSearch/>
+                {/* <NavbarSearch/> */}
                     <Route path="/" exact component={Home} />
                     <Route path="/Abstract" component={Abstract} />
                     <Route path="/Drawings/Material/:material" component={Material}/>

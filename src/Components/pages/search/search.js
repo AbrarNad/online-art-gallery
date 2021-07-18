@@ -5,6 +5,7 @@ import SignUp from '../users/user/register.js';
 import SignIn from '../users/user/login.js';
 import AddProduct from '../../Products/add.js';
 import JumbotronExample from '../../Jumbo/jumbo.js';
+import Checkbox from '../../Checkbox/checkbox.js';
 
 import {
   BrowserRouter as Router,
@@ -18,8 +19,10 @@ const history = createBrowserHistory({forceRefresh:true});
 
 const Search = () => {
   const [products, setProducts] = useState([]);
+  const [productsClone, setProdClone] = useState([]);
   
   const urlString = "http://localhost:4000/products/";
+  var constantProduct;
 
   
 
@@ -53,20 +56,41 @@ const Search = () => {
       })
   }
 
+  const getProductClone = () => {
+    Axios({
+        method: "GET",
+        withCredentials: true,
+        url:"http://localhost:4000/products/category/Drawings"      //this is API url
+    }).then((res)=>{
+        //console.log(res.data);
+        const {data} = res;
+        setProdClone(data);
+    })
+  }
+
   useEffect(()=>{
       getProduct();
   },[] );
 
+  useEffect(()=>{
+    console.log("is called?");
+    getProductClone();
+  },[products] );
+
+  constantProduct = JSON.parse(JSON.stringify(productsClone));
+  console.log(constantProduct);
+
   var newArray = products.filter(function (el) {
     var flag = false;
 
-    flag = flag || el.Product.toLowerCase().includes(queryStrVal[1])
-                || el.Catagory.toLowerCase().includes(queryStrVal[1])
-                || el.Artist.toLowerCase().includes(queryStrVal[1])
-                || el.Description.toLowerCase().includes(queryStrVal[1])
-                || el.Subject.toLowerCase().includes(queryStrVal[1])
-                || el.Style.toLowerCase().includes(queryStrVal[1])
-                || el.Medium.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Medium === 'undefined') console.log("ehy undef---------------");
+    if(typeof el.Product !== 'undefined') flag = flag || el.Product.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Catagory !== 'undefined') flag = flag || el.Catagory.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Artist !== 'undefined') flag = flag || el.Artist.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Description !== 'undefined') flag = flag || el.Description.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Subject !== 'undefined') flag = flag || el.Subject.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Style !== 'undefined') flag = flag || el.Style.toLowerCase().includes(queryStrVal[1]);
+    if(typeof el.Medium !== 'undefined') flag = flag || el.Medium.toLowerCase().includes(queryStrVal[1]);
 
     if (typeof el.Tags !== 'undefined') {
       el.Tags.map((tag) => {
@@ -84,10 +108,16 @@ const Search = () => {
   return (
       <div>
           <JumbotronExample/>
-          <Products productData = {newArray}/>
-          <SignUp/>
-          <SignIn/>
-          <AddProduct/>
+          <div className="container">
+            <div className="row">
+                <div className="col-2">
+                    <Checkbox products={constantProduct} SettingProducts={setProducts}/>
+                </div>
+                <div className="col">
+                    <Products productData={newArray} flag={1}/>
+                </div>
+            </div>
+        </div>
       </div>
   );
 
