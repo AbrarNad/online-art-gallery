@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,6 +24,7 @@ import 'material-react-toastify/dist/ReactToastify.css';
 import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './tagstyles.css'
+import authService from '../../services/authService';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,9 +63,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function AddProduct() {
+  const history = useHistory();
   const classes = useStyles();
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [submitting, setSubmitting] = useState(false);
+  
+  const [nextpath, setNextPath] = useState("");
   const [values, setValues] = React.useState({
     amount: '',
     password: '',
@@ -88,6 +93,10 @@ export default function AddProduct() {
     setTags(newTags);
   };
 
+  function handleClick() {
+    //alert(nextpath);
+    history.push(nextpath);
+  }
 
   const changeImageHandler = (e) => {
     let selected = e.target.files[0];
@@ -102,7 +111,8 @@ export default function AddProduct() {
   };
 
   const notify = () => toast.success("New product added!");
-  const notifyFailed = () => toast.warning("Failed!");
+  const notifyFailed = () => toast.error("Product Addition Failed!");
+  const notifyAuthFailed = () => toast.error("Authorization Failed!");
 
   return (
     <Container component="main" maxWidth="sm">
@@ -127,7 +137,8 @@ export default function AddProduct() {
                 const response = await fetch("http://localhost:4000/products",{
                   method: "POST",
                   headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "x-auth-token": authService.getJWT()
                   },
                   body: JSON.stringify({
                     Product: formData.name,
@@ -149,7 +160,16 @@ export default function AddProduct() {
               
               const data = await response.json();
               //alert(JSON.stringify((data)));
-              notify();
+              if(data.message==='product successfully added' ){
+                notify();
+                //history.push("/");
+                setNextPath("/");
+              }else{
+                notifyAuthFailed();
+                setSubmitting(false);
+                //history.push("/addprod");
+                setNextPath("/addprod");
+              }
             }else{
               notifyFailed();
             }
@@ -428,6 +448,7 @@ export default function AddProduct() {
             autoClose={8000}
             transition="bounce"
             draggable
+            onClick={handleClick}
           />
         </form>
       </div>

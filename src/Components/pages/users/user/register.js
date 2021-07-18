@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +18,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
+import  { Redirect } from 'react-router-dom'
+import authService from "../../../../services/authService";
 
 
 
@@ -51,13 +54,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const history = useHistory();
   const classes = useStyles();
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [submitting, setSubmitting] = useState(false);
   const [isArtist, setArtist] = useState(false);
-  const notify = () => toast.success("New product added!");
+  const [nextpath, setNextPath] = useState("");
   const notifyUser = () => toast.success("New User Created!");
   const notifyArtist = () => toast.success("New Artist Created!");
+  const notifyUserFailed = () => toast.error("Username already taken!");
+  const notifyArtistFailed = () => toast.error("Username already taken!");
+
+  function handleClick() {
+    //alert(nextpath);
+    history.push(nextpath);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -94,8 +105,21 @@ export default function SignUp() {
             
               const data = await response.json();
               //alert(JSON.stringify((data)));
-              console.log(isArtist);
-              notifyArtist();
+              //console.log(isArtist);
+              //notifyArtist();
+              if(data.message==='successfully created' ){
+                authService.uiLogin(data.token);
+                localStorage.setItem("isArtist", true);
+                notifyArtist();
+                setSubmitting(false);
+                //history.push("/");
+                setNextPath("/");
+              }else{
+                notifyArtistFailed();
+                setSubmitting(false);
+                //history.push("/signup");
+                setNextPath("/signup");
+              }
 
             setSubmitting(false);
             }else{
@@ -106,7 +130,7 @@ export default function SignUp() {
               const response = await fetch("http://localhost:4000/users",{
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                   Name: formData.name,
@@ -120,10 +144,21 @@ export default function SignUp() {
               
               const data = await response.json();
               //alert(JSON.stringify((data)));
-              console.log(isArtist);
+              //console.log(isArtist);
+              if(data.message==='user successfully created' ){
+                authService.uiLogin(data.token);
 
-              setSubmitting(false);
-              notifyUser();
+                notifyUser();
+                setSubmitting(false);
+                //history.push("/");
+                setNextPath("/");
+              }else{
+                notifyUserFailed();
+                setSubmitting(false);
+                //history.push("/signup");
+                setNextPath("/signup");
+              }
+              
             }
 
           })}>
@@ -146,7 +181,7 @@ export default function SignUp() {
                   <MenuItem value={false}>Basic User</MenuItem>
                   <MenuItem value={true}>Artist</MenuItem>
                 </Select>
-                {errors.location?.type === 'required' && <span>* Location is required</span>}
+                {errors.loginas?.type === 'required' && <span>*Field Required</span>}
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -302,6 +337,13 @@ export default function SignUp() {
           >
             Sign Up
           </Button>
+          <ToastContainer
+            position="top-center"
+            autoClose={8000}
+            transition="bounce"
+            draggable
+            onClick={handleClick}
+          />
           <Grid container justify="flex-start">
             <Grid item>
               <Link href="#" variant="body2">
