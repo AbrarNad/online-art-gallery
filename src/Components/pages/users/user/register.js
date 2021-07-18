@@ -147,7 +147,7 @@ export default function SignUp() {
               //console.log(isArtist);
               if(data.message==='user successfully created' ){
                 authService.uiLogin(data.token);
-
+                localStorage.setItem("isArtist", false);
                 notifyUser();
                 setSubmitting(false);
                 //history.push("/");
@@ -346,7 +346,7 @@ export default function SignUp() {
           />
           <Grid container justify="flex-start">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signin" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

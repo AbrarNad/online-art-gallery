@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -25,6 +25,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import authService from '../../../../services/authService';
+import { useHistory } from "react-router-dom";
+const Axios = require('axios');
 
 
 
@@ -63,11 +66,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Account() {
+  
+  const history = useHistory();
   const classes = useStyles();
+  const [nextpath, setNextPath] = useState("");
   const { register, handleSubmit, formState: { errors }} = useForm();
+  const [userData, setUserData] = useState([]);
+  const urlString = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
+  const getUserData = () => {
+      Axios({
+          method: "GET",
+          withCredentials: true,
+          url: urlString,    //this is API url
+      }).then((res)=>{
+          //alert(JSON.stringify(res.data));
+          const {data} = res;
+          setUserData((data));
+      })
+  }
+  
+  function handleClick() {
+    //alert(nextpath);
+    history.push(nextpath);
+  }
+
+  function handleLogout(){
+    localStorage.removeItem('userid');
+    localStorage.removeItem('token');
+    localStorage.removeItem('isArtist');
+    history.push("/signin");
+  }
+  //alert(userData);
+  useEffect(()=>{
+      getUserData();
+  },[] );
+  
+  alert(JSON.stringify(userData));
+
   const [submitting, setSubmitting] = useState(false);
-  const notify = () => toast.success("New product added!");
-  const notifyUser = () => toast.success("New User Created!");
   const notifyArtist = () => toast.success("New Artist Created!");
   const ListStyle = {
     width: '100%',
@@ -82,25 +118,20 @@ export default function Account() {
         <Avatar className={classes.avatar}>
           <UpdateOutlinedIcon color='inherit'/>
         </Avatar>
-        <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
+        <form 
+        className={classes.form} 
+        onSubmit={handleSubmit(async (formData)=> {
 
             //alert(JSON.stringify(formData));
             
 
-              const response = await fetch("http://localhost:4000/artists",{
-                method: "POST",
+              const response = await fetch("http://localhost:4000/users",{
+                method: "GET",
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/json",
+                  "x-auth-token": authService.getJWT()
                 },
                 body: JSON.stringify({
-                  Name: formData.name,
-                  Email: formData.email,
-                  Address: formData.address,
-                  Password: formData.password,
-                  Location: formData.location,
-                  Username: formData.username,
-                  Bio: formData.bio,
-                  Education: formData.education,
                 }),
               });
             
@@ -140,6 +171,7 @@ export default function Account() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.button}  
+                                onClick={handleLogout}
                             >
                                 Logout
                             </Button>
@@ -172,7 +204,6 @@ export default function Account() {
                         fullWidth
                         id="name"
                         label="Name"
-                        autoFocus
                     />
                     {errors.name?.type === 'required' && "* Name is required"}
                     {errors.name && errors.name.type === "maxLength" && <span>* Maximum allowed length exceeded(30)</span> }

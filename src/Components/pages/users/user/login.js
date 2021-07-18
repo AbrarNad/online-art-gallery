@@ -120,6 +120,7 @@ export default function SignIn() {
               if(data.message==='welcome' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
+                localStorage.setItem("userid", data.users._id);
                 setSubmitting(false);
                 history.push("/");
                 //setNextPath("/");
@@ -148,10 +149,12 @@ export default function SignIn() {
               });
               
               const data = await response.json();
-              //alert(JSON.stringify((data)));
+              alert(JSON.stringify((data)));
               //console.log(isArtist);
               if(data.message==='welcome' ){
                 authService.uiLogin(data.token);
+                localStorage.setItem("isArtist", false);
+                localStorage.setItem("userid", data.users._id);
                 //alert("ekhane");
                 setSubmitting(false);
                 history.push("/");
@@ -245,7 +248,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
