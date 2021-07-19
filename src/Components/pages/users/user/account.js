@@ -96,6 +96,7 @@ export default function Account() {
     localStorage.removeItem('userid');
     localStorage.removeItem('token');
     localStorage.removeItem('isArtist');
+    localStorage.removeItem('role');
     history.push("/signin");
   }
   //alert(userData);

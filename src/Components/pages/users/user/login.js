@@ -120,6 +120,7 @@ export default function SignIn() {
               if(data.message==='welcome' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
+                localStorage.setItem("role", data.users.Role);
                 localStorage.setItem("userid", data.users._id);
                 setSubmitting(false);
                 history.push("/");
@@ -155,6 +156,7 @@ export default function SignIn() {
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", false);
                 localStorage.setItem("userid", data.users._id);
+                localStorage.setItem("role", data.users.Role);
                 //alert("ekhane");
                 setSubmitting(false);
                 history.push("/");

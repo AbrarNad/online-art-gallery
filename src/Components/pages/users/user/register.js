@@ -110,6 +110,8 @@ export default function SignUp() {
               if(data.message==='successfully created' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
+                localStorage.setItem("role", data.users.Role);
+                localStorage.setItem("userid", data.users._id);
                 notifyArtist();
                 setSubmitting(false);
                 //history.push("/");
@@ -148,6 +150,8 @@ export default function SignUp() {
               if(data.message==='user successfully created' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", false);
+                localStorage.setItem("userid", data.users._id);
+                localStorage.setItem("role", data.users.Role);
                 notifyUser();
                 setSubmitting(false);
                 //history.push("/");
