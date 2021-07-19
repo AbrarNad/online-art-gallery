@@ -79,7 +79,7 @@ function ProductImage( {image} ){
 }
 
 function ProductDescription( {description, handleExpandClick, expanded, price, artist, ID, user, setUser, favColor, setFavColor
-                            ,cartColor, setCartColor} ){
+                            ,cartColor, setCartColor, cartCount, setCartCount} ){
   const classes = useStyles();
 
   //const s = 'Gray';
@@ -106,6 +106,7 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
       if(!user.Favorites.includes(ID)){
           setFavColor('red');
           user.Favorites.push(ID);
+          setUser(user);
         }
         else{
           setFavColor('Gray');
@@ -144,6 +145,7 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
           setCartColor('red');
           user.Cart.push(ID);
           setUser(user);
+          setCartCount(cartCount + 1);
         }
         else{
           setCartColor('Gray');
@@ -151,6 +153,7 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
             return prodId != ID;
           })
           setUser(user);
+          setCartCount(cartCount - 1);
         }
         const response = await fetch(`http://localhost:4000/users/${localStorage.getItem('userid')}`,{
           method: "PATCH",
@@ -229,7 +232,7 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
   );
 }
 
-function Product({ product, user, setUser }){
+function Product({ product, user, setUser, cartCount, setCartCount }){
 
   console.log(user);
   const name = product.Product, image = product.images[0], description = product.Description, price = product.Price,
@@ -266,12 +269,14 @@ function Product({ product, user, setUser }){
                           setFavColor = {setFavColor}
                           cartColor = {cartColor}
                           setCartColor = {setCartColor}
+                          cartCount = {cartCount}
+                          setCartCount = {setCartCount}
       />
     </Card>
   );
 }
 
-function Products({ productData, user, setUser, flag }){
+function Products({ productData, user, setUser, cartCount, setCartCount, flag }){
   console.log(user);
 
   /* if(productData.length == 0) return (
@@ -285,13 +290,19 @@ function Products({ productData, user, setUser, flag }){
     if(flag === 1){
       return (
         <div className="col-lg-4 col-md-6 col-sm-12" style={{marginTop:'10px'}}>
-          <Product product={product} user={user} setUser={setUser} key = {i}/>
+          <Product product={product} user={user} setUser={setUser} 
+          cartCount = {cartCount}
+          setCartCount = {setCartCount}
+          key = {i}/>
         </div>
       );
     }
     return (
       <div className="col-lg-3 col-md-4 col-sm-6" style={{marginTop:'10px'}}>
-        <Product product={product} user={user} setUser={setUser} key = {i}/>
+        <Product product={product} user={user} setUser={setUser} 
+        cartCount = {cartCount}
+        setCartCount = {setCartCount}
+        key = {i}/>
       </div>
     );
     /* return (

@@ -1,14 +1,11 @@
 import React,{ useState, useEffect} from 'react';
 import Products from '../../../Products/ProductsBootstrap.jsx';
 import Axios from "axios";
-import SignUp from './register.js';
-import SignIn from './login.js';
-import AddProduct from '../../../Products/add.js';
 import JumbotronExample from '../../../Jumbo/jumbo.js';
 import Navbar from '../../../Navbar/Navbar1.js';
 
 
-const Favorites = () => {
+const Carts = () => {
     const [products, setProducts] = useState([]);
     const [user, setUser] = useState({});
     const [cartCount, setCartCount] = useState(0);
@@ -51,16 +48,16 @@ const Favorites = () => {
     },[] );
 
     var newArray = [];
-    if(typeof user.Favorites!== 'undefined'){
+    if(typeof user.Cart !== 'undefined'){
       newArray = products.filter(function (el) {
-        return user.Favorites.includes(el._id);
+        return user.Cart.includes(el._id);
       });
     }
  
 
     return (
         <div>
-            <Navbar user={user} cartCount={cartCount}/> 
+            <Navbar user={user} cartCount={cartCount}/>
             <JumbotronExample/>
             <Products productData = {newArray} user={user} setUser={setUser}
             cartCount = {cartCount}
@@ -85,4 +82,4 @@ const Favorites = () => {
     ); */
 }
 
-export default Favorites;
+export default Carts;

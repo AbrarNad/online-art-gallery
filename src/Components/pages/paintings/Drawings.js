@@ -4,11 +4,9 @@ import Axios from "axios";
 import Checkbox from '../../Checkbox/checkbox';
 import { useLocation, useParams } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { Link } from '@material-ui/core';
 import './popup.css';
-import ControlledCarousel from '../../Carousel/Carousel';
+import Navbar from '../../Navbar/Navbar1';
 
 
 const history = createBrowserHistory({forceRefresh:true});
@@ -85,6 +83,8 @@ const Drawings = () => {
     if(location.search !== ""){
         history.push("/Drawings");
     }
+
+    const [cartCount, setCartCount] = useState(0);
     /* var str = location.search;
     str = str.slice(1, str.length);
     console.log(str);
@@ -105,30 +105,35 @@ const Drawings = () => {
     }); */
 
     return <div>
-        <div className="container">
-            {/* <Popup className="my-popup"
-                trigger={open => (
-                    <a className="btn btn-primary rounded-3 btn-light" href="/signup" role="button">button</a>
-                )}
-                position="bottom center"
-                closeOnDocumentClick
-                on = "hover"
-                >
-                <div className="container">
-                    hi i am here but wait hwere are ou df df dfsdf
-                </div>
-            </Popup> */}
-            <div className="row">
-                <div className="col-2">
-                    <Checkbox products={constantProduct} SettingProducts={setProducts}/>
-                </div>
-                <div className="col">
-                    <Products productData={products}  user={user} setUser={setUser} flag={1}/>
-                </div>
-            </div>
-        </div>
+                <Navbar user={user} cartCount={cartCount}/>
+                    <div className="container">
+                        
+                        {/* <Popup className="my-popup"
+                            trigger={open => (
+                                <a className="btn btn-primary rounded-3 btn-light" href="/signup" role="button">button</a>
+                            )}
+                            position="bottom center"
+                            closeOnDocumentClick
+                            on = "hover"
+                            >
+                            <div className="container">
+                                hi i am here but wait hwere are ou df df dfsdf
+                            </div>
+                        </Popup> */}
+                        <div className="row">
+                            <div className="col-2">
+                                <Checkbox products={constantProduct} SettingProducts={setProducts}/>
+                            </div>
+                            <div className="col">
+                                <Products productData={products}  user={user} setUser={setUser} 
+                                cartCount = {cartCount}
+                                setCartCount = {setCartCount}
+                                flag={1}/>
+                            </div>
+                        </div>
+                    </div>
         
-    </div>
+                </div>
 }
 
 export default Drawings;

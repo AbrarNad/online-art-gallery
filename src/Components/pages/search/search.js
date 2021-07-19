@@ -3,6 +3,7 @@ import Products from '../../Products/ProductsBootstrap.jsx';
 import Axios from "axios";
 import JumbotronExample from '../../Jumbo/jumbo.js';
 import Checkbox from '../../Checkbox/checkbox.js';
+import Navbar from '../../Navbar/Navbar1.js';
 
 import {
   BrowserRouter as Router,
@@ -18,6 +19,7 @@ const Search = () => {
   const [products, setProducts] = useState([]);
   const [productsClone, setProdClone] = useState([]);
   const [user, setUser] = useState({});
+  const [cartCount, setCartCount] = useState(0);
   
   const urlString = "http://localhost:4000/products/";
   const urlStringUser = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
@@ -99,7 +101,7 @@ const Search = () => {
   var newArray = products.filter(function (el) {
     var flag = false;
 
-    if(typeof el.Medium === 'undefined') console.log("ehy undef---------------");
+    //if(typeof el.Medium === 'undefined') console.log("ehy undef---------------");
     if(typeof el.Product !== 'undefined') flag = flag || el.Product.toLowerCase().includes(queryStrVal[1]);
     if(typeof el.Catagory !== 'undefined') flag = flag || el.Catagory.toLowerCase().includes(queryStrVal[1]);
     if(typeof el.Artist !== 'undefined') flag = flag || el.Artist.toLowerCase().includes(queryStrVal[1]);
@@ -123,6 +125,7 @@ const Search = () => {
 
   return (
       <div>
+          <Navbar user={user} cartCount={cartCount}/>
           <JumbotronExample/>
           <div>
             <b><h4 className="text-center">Showing results for "{queryStrVal[1]}"</h4></b>
@@ -133,7 +136,10 @@ const Search = () => {
                     <Checkbox products={constantProduct} SettingProducts={setProducts}/>
                 </div>
                 <div className="col">
-                    <Products productData={newArray} user={user} setUser={setUser} flag={1}/>
+                    <Products productData={newArray} user={user} setUser={setUser} 
+                    cartCount = {cartCount}
+                    setCartCount = {setCartCount}
+                    flag={1}/>
                 </div>
             </div>
         </div>

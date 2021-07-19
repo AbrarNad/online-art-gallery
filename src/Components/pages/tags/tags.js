@@ -3,6 +3,7 @@ import Axios from "axios";
 import JumbotronExample from '../../Jumbo/jumbo.js';
 import { useHistory, useParams } from 'react-router-dom';
 import Products from '../../Products/ProductsBootstrap.jsx';
+import Navbar from '../../Navbar/Navbar1.js';
 
 
 const Tag = () => {
@@ -10,6 +11,7 @@ const Tag = () => {
     const { tag } = useParams();
     const [products, setProducts] = useState([]);
     const [user, setUser] = useState({});
+    const [cartCount, setCartCount] = useState(0);
 
     const urlString = "http://localhost:4000/products/tags/" + tag + "/";
     const urlStringUser = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
@@ -54,12 +56,15 @@ const Tag = () => {
     
     return (
         <div>
-
+            <Navbar user={user} cartCount={cartCount}/>
             <JumbotronExample/>
             <div>
                 <b><h4 className="text-center">Showing results for "{tag}"</h4></b>
             </div>
-            <Products productData={products} user={user} setUser={setUser}/>
+            <Products productData={products} user={user} setUser={setUser}
+                cartCount = {cartCount}
+                setCartCount = {setCartCount}
+            />
         </div>
     );
 

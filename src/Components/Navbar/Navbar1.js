@@ -8,14 +8,43 @@ import { BsFillPersonFill } from "react-icons/bs";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import '../pages/paintings/popup.css';
+import { IconButton } from '@material-ui/core';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import HomeIcon from '@material-ui/icons/Home';
+import Badge from '@material-ui/core/Badge';
 
-const Navbar = () => {
+function CartOnNav( {user, cartCount} ){
+  if(typeof user.Cart !== 'undefined')
+    return (
+      <IconButton aria-label="add to cart" style={{color: 'Gray'}} href="/user/cart">
+        <Badge badgeContent={cartCount} color="primary">
+          <AddShoppingCartIcon/>
+        </Badge>
+      </IconButton>
+    );
+  else{
+    return (
+      <IconButton aria-label="add to cart" style={{color: 'Gray'}} href="/user/cart">
+        <Badge badgeContent={0} color="primary">
+            <AddShoppingCartIcon/>
+        </Badge>
+      </IconButton>
+    )
+  }
+}
+
+const Navbar = ( {user, cartCount} ) => {
 
 
   const [searchText, setSearchText] = useState("");
 
+
   function handleSearch(event) {
     setSearchText(event.target.value);
+  }
+
+  if(typeof  user.Cart !== 'undefined'){
+    cartCount = user.Cart.length;
   }
 
   return (
@@ -131,6 +160,8 @@ const Navbar = () => {
               </li> */}
           </ul>
           <form class="d-flex" action="http://localhost:3000/search/" method="GET">
+            
+            <CartOnNav user={user} cartCount = {cartCount}/>
             <input type="hidden" name="query" value={searchText} /> 
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchText} 
               onChange={handleSearch}
@@ -138,13 +169,12 @@ const Navbar = () => {
             {/* <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
             <button class="btn btn-outline-success" type="submit">Search</button> */}
             
-            <a className="btn rounded-3 btn-outline-danger" href="/signup" role="button" style={{margin: '5px'}}>Sign Up</a>
             <a className="btn btn-outline-danger" href="/signin" role="button" style={{margin: '5px'}}>Sign In</a>
             <a className="btn btn-outline-danger" href="/addprod" role="button" style={{margin: '5px'}}>Add Product</a>
             <div style={{marginTop: '5px', marginLeft: '15px'}}>
-              <Link href="/user/account">
-                <AccountCircleIcon></AccountCircleIcon>
-              </Link> 
+              <IconButton aria-label="add to cart" style={{color: 'Gray'}} href="/user/account">
+                <AccountCircleIcon/>
+              </IconButton>
             </div>
 
                        

@@ -8,6 +8,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Link } from '@material-ui/core';
 import './popup.css';
+import Navbar from '../../Navbar/Navbar1';
 
 
 const history = createBrowserHistory({forceRefresh:true});
@@ -83,21 +84,27 @@ const Paintings = () => {
     if(location.search !== ""){
         history.push("/Paintings");
     }
+
+    const [cartCount, setCartCount] = useState(0);
     
 
     return <div>
-        <div className="container">
-            <div className="row">
-                <div className="col-2">
-                    <Checkbox products={constantProduct} SettingProducts={setProducts}/>
-                </div>
-                <div className="col">
-                    <Products productData={products} user={user} setUser={setUser} flag={1}/>
+        <Navbar user={user} cartCount={cartCount}/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-2">
+                        <Checkbox products={constantProduct} SettingProducts={setProducts}/>
+                    </div>
+                    <div className="col">
+                        <Products productData={products} user={user} setUser={setUser} 
+                        cartCount = {cartCount}
+                        setCartCount = {setCartCount}
+                        flag={1}/>
+                    </div>
                 </div>
             </div>
-        </div>
         
-    </div>
+        </div>
 }
 
 export default Paintings;

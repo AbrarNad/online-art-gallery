@@ -5,6 +5,7 @@ import SignUp from './users/user/register.js';
 import SignIn from './users/user/login.js';
 import AddProduct from '../Products/add.js';
 import JumbotronExample from '../Jumbo/jumbo.js';
+import Navbar from '../Navbar/Navbar1';
 
 
 const Home = () => {
@@ -30,6 +31,7 @@ const Home = () => {
         getProduct();
     },[] );
 
+    
 
     const getUser = () => {
         Axios({
@@ -48,13 +50,21 @@ const Home = () => {
         getUser();
     },[] );
 
+   
+    const [cartCount, setCartCount] = useState(0);
+
+
     const productList = [];
     for(let i = 1; i <= 3; i++){
         var newArray = products.filter(function (el) {
             return el.Roomid === i;
         });
         productList.push(<div>
-            <Products productData = {newArray} user={user} setUser={setUser}/>
+            <Products productData = {newArray} 
+                        user={user} setUser={setUser} 
+                        cartCount = {cartCount}
+                        setCartCount = {setCartCount}
+                        />
             <hr/>
         </div>);
     }
@@ -64,6 +74,7 @@ const Home = () => {
 
     return (
         <div>
+            <Navbar user={user} cartCount={cartCount}/>
             <JumbotronExample/>
             {productList}
             <SignUp/>
