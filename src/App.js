@@ -18,6 +18,7 @@ import AddProduct from "./Components/Products/add";
 import { Container } from 'react-bootstrap';
 import ProductDetail from './Components/pages/ProductDetail';
 import Account from './Components/pages/users/user/account';
+import Admin_Dashboard from './Components/pages/admin/dashboard';
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path="/signin" component={SignIn}/>
                         <Route path="/addprod" component={AddProduct}/>
                         <Route path="/user/account" component={Account}/>
+                        <Route path="/admin/dashboard" component={Admin_Dashboard}/>
                     </Switch>
             </Router>
         </div>

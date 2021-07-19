@@ -266,6 +266,19 @@ export default function Account() {
                       </Typography>
                       <Divider/>
                     </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Role: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Role} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
                     
                     
                 </Grid>

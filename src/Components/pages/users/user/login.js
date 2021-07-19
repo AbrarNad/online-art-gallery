@@ -150,7 +150,7 @@ export default function SignIn() {
               });
               
               const data = await response.json();
-              alert(JSON.stringify((data)));
+              //alert(JSON.stringify((data)));
               //console.log(isArtist);
               if(data.message==='welcome' ){
                 authService.uiLogin(data.token);
