@@ -110,8 +110,8 @@ export default function SignUp() {
               if(data.message==='successfully created' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
-                localStorage.setItem("role", data.users.Role);
-                localStorage.setItem("userid", data.users._id);
+                localStorage.setItem("role", data.artist.Role);
+                localStorage.setItem("userid", data.artist._id);
                 notifyArtist();
                 setSubmitting(false);
                 //history.push("/");
@@ -145,13 +145,13 @@ export default function SignUp() {
               });
               
               const data = await response.json();
-              //alert(JSON.stringify((data)));
+              alert(JSON.stringify((data)));
               //console.log(isArtist);
               if(data.message==='user successfully created' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", false);
-                localStorage.setItem("userid", data.users._id);
-                localStorage.setItem("role", data.users.Role);
+                localStorage.setItem("userid", data.user._id);
+                localStorage.setItem("role", data.user.Role);
                 notifyUser();
                 setSubmitting(false);
                 //history.push("/");
@@ -162,7 +162,7 @@ export default function SignUp() {
                 //history.push("/signup");
                 setNextPath("/signup");
               }
-              
+              setSubmitting(false);
             }
 
           })}>

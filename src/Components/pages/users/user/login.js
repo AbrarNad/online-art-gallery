@@ -97,7 +97,7 @@ export default function SignIn() {
             Sign in
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
-              if(isArtist){
+            if(isArtist){
             setSubmitting(true);
             //alert(JSON.stringify(formData));
             
@@ -120,8 +120,8 @@ export default function SignIn() {
               if(data.message==='welcome' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
-                localStorage.setItem("role", data.users.Role);
-                localStorage.setItem("userid", data.users._id);
+                localStorage.setItem("role", data.artist.Role);
+                localStorage.setItem("userid", data.artist._id);
                 setSubmitting(false);
                 history.push("/");
                 //setNextPath("/");
