@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -76,8 +77,13 @@ function ProductImage( {image} ){
   );
 }
 
-function ProductDescription( {description, handleExpandClick, expanded, price, artist} ){
+function ProductDescription( {description, handleExpandClick, expanded, price, artist, ID, user, setUser} ){
   const classes = useStyles();
+  function favIconClickHandle(){
+    if(user.Favorites.includes(ID)){
+      
+    }
+  }
   return (
     <div>
       <CardContent>
@@ -87,11 +93,11 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" style={{color: 'red'}}>
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton aria-label="add to cart">
+          <AddShoppingCartIcon/>
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -126,7 +132,7 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
   );
 }
 
-function Product({ product }){
+function Product({ product, user, setUser }){
 
   const name = product.Product, image = product.images[0], description = product.Description, price = product.Price,
   ID = product._id;
@@ -153,12 +159,15 @@ function Product({ product }){
                           expanded = {expanded} 
                           price = {price}
                           artist = {artist}
+                          ID = {ID}
+                          user = {user}
+                          setUser = {setUser}
       />
     </Card>
   );
 }
 
-function Products({ productData, flag }){
+function Products({ productData, user, setUser, flag }){
 
   /* if(productData.length == 0) return (
     <div>
@@ -171,7 +180,7 @@ function Products({ productData, flag }){
     if(flag === 1){
       return (
         <div className="col-lg-4 col-md-6 col-sm-12" style={{marginTop:'10px'}}>
-          <Product product={product} key = {i}/>
+          <Product product={product} key = {i} user={user} setUser={setUser}/>
         </div>
       );
     }

@@ -18,28 +18,33 @@ function searches(keyValue, label){
 }
 
 var searchList = [];
-var styleList = [new searches("Style=Modern", "Modern"), 
-                new searches("Style=Realism", "Realism"), 
-                new searches("Style=Figurative", "Figurative"), 
-                new searches("Style=Conceptual", "Conceptual"), 
-                new searches("Style=Illustration", "Illustration"),
+var styleList = [new searches("Style=FIne Art", "FIne Art"), 
+                new searches("Style=Abstract", "Abstract"), 
+                new searches("Style=Modern", "Modern"), 
+                new searches("Style=Street Art", "Street Art"), 
+                new searches("Style=Pop Art", "Pop Art"),
                 new searches("Material=Wood", "Wood"),
                 new searches("Material=Paper", "Paper"),
                 new searches("Material=Cardboard", "Cardboard"),
                 new searches("Material=Canvas", "Canvas"),
-                new searches("Material=Fabric", "Fabric"),
-                new searches("Subject=Abstract", "Abstract"),
+                new searches("Material=Other", "Other"),
+                new searches("Subject=Still Life", "Still Life"),
                 new searches("Subject=Landscape", "Landscape"),
-                new searches("Subject=People", "People"),
+                new searches("Subject=Beach", "Beach"),
                 new searches("Subject=Portrait", "Portrait"),
                 new searches("Subject=Nature", "Nature"),
+                new searches("Medium=Oil", "Oil"),
+                new searches("Medium=Acrylic", "Acrylic"),
+                new searches("Medium=Airbrush", "Airbrush"),
+                new searches("Medium=Digital", "Digital"),
+                new searches("Medium=Watercolor", "Watercolor"),
                 new searches("Price=500", "Under $500"),
                 new searches("Price=500&&1000", "$500-$1000"),
                 new searches("Price=1000&&2000", "$1000-$2000"),
                 new searches("Price=2000&&5000", "$2000-$5000"),
                 new searches("Price=5000", "Over $5000"),];
 
-var labelList = ["Style", "Material", "Subject", "price"];
+var labelList = ["Style", "Material", "Subject", "Medium", "price"];
 
 
 var newArray = [];

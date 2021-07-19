@@ -21,7 +21,8 @@ import Account from './Components/pages/users/user/account';
 import createBrowserHistory from 'history/createBrowserHistory';
 import NavbarSearch from './Components/Navbar/NavbarSearch';
 import Search from './Components/pages/search/search';
-
+import Paintings from './Components/pages/paintings/Paintings';
+import ControlledCarousel from './Components/Carousel/Carousel';
 const history = createBrowserHistory({forceRefresh:true});
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                     <Route path="/Abstract" component={Abstract} />
                     <Route path="/Drawings/Material/:material" component={Material}/>
                     <Route path="/Drawings" component={Drawings} />
+                    <Route path="/Paintings" component={Paintings} />
                     <Route path="/OilPaint" component={OilPaint} />
                     <Route path="/PlainArt" component={PlainArt} />
                     <Route path="/products/:id" component={ProductDetail}/>

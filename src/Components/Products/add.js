@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,6 +24,7 @@ import 'material-react-toastify/dist/ReactToastify.css';
 import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import './tagstyles.css'
+import authService from '../../services/authService';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,9 +63,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function AddProduct() {
+  const history = useHistory();
   const classes = useStyles();
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [submitting, setSubmitting] = useState(false);
+  
+  const [nextpath, setNextPath] = useState("");
   const [values, setValues] = React.useState({
     amount: '',
     password: '',
@@ -88,6 +93,10 @@ export default function AddProduct() {
     setTags(newTags);
   };
 
+  function handleClick() {
+    //alert(nextpath);
+    history.push(nextpath);
+  }
 
   const changeImageHandler = (e) => {
     let selected = e.target.files[0];
@@ -102,10 +111,11 @@ export default function AddProduct() {
   };
 
   const notify = () => toast.success("New product added!");
-  const notifyFailed = () => toast.warning("Failed!");
+  const notifyFailed = () => toast.error("Product Addition Failed!");
+  const notifyAuthFailed = () => toast.error("Authorization Failed!");
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         
@@ -114,7 +124,7 @@ export default function AddProduct() {
         <Typography component="h1" variant="h5">
           Add an Art Piece
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
+        <form className={classes.form} onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }} onSubmit={handleSubmit(async (formData)=> {
     
               setSubmitting(true);
             //alert(JSON.stringify(formData));
@@ -127,7 +137,8 @@ export default function AddProduct() {
                 const response = await fetch("http://localhost:4000/products",{
                   method: "POST",
                   headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "x-auth-token": authService.getJWT()
                   },
                   body: JSON.stringify({
                     Product: formData.name,
@@ -139,7 +150,8 @@ export default function AddProduct() {
                     Dimension: formData.width+" W x "+formData.length+" L x"+formData.depth +" D",
                     Subject: formData.subject,
                     Style: formData.style,
-                    Material: formData.Material,
+                    Material: formData.material,
+                    Medium: formData.medium,
                     images : imageurls,
                     Roomid: 1,
                     Tags: tags,
@@ -148,7 +160,16 @@ export default function AddProduct() {
               
               const data = await response.json();
               //alert(JSON.stringify((data)));
-              notify();
+              if(data.message==='product successfully added' ){
+                notify();
+                //history.push("/");
+                setNextPath("/");
+              }else{
+                notifyAuthFailed();
+                setSubmitting(false);
+                //history.push("/addprod");
+                setNextPath("/addprod");
+              }
             }else{
               notifyFailed();
             }
@@ -196,8 +217,8 @@ export default function AddProduct() {
                   label="Catagory"
                   fullWidth
                 >
-                  <MenuItem value={"Paintings"}>Paintings</MenuItem>
-                  <MenuItem value={"Drawings"}>Drawings</MenuItem>
+                  <MenuItem value={"Painting"}>Painting</MenuItem>
+                  <MenuItem value={"Drawing"}>Drawing</MenuItem>
                 </Select>
                 {errors.style?.type === 'required' && <span>* Add a Catagory to your Art piece</span>}
               </FormControl>
@@ -235,7 +256,7 @@ export default function AddProduct() {
               {errors.description?.type === 'required' && "* Add a description of your Art"}
               {errors.description && errors.description.type === "maxLength" && <span>* Maximum allowed length exceeded(1000)</span> }
             </Grid>
-            <Grid xs={12} sm={4}>
+            <Grid xs={12} sm={3}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="stylelabel">&nbsp;&nbsp;Style</InputLabel>
                 <Select
@@ -258,7 +279,7 @@ export default function AddProduct() {
                 {errors.style?.type === 'required' && <span>* Add a style tag to your Art piece</span>}
               </FormControl>
             </Grid>
-            <Grid xs={12} sm={4}>
+            <Grid xs={12} sm={3}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="subjectlabel">&nbsp;&nbsp;Subject</InputLabel>
                 <Select
@@ -281,7 +302,7 @@ export default function AddProduct() {
                 {errors.subject?.type === 'required' && <span>* Add a Subject tag to your Art piece</span>}
               </FormControl>
             </Grid>
-            <Grid xs={12} sm={4}>
+            <Grid xs={12} sm={3}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="mediumlabel">&nbsp;&nbsp;Medium</InputLabel>
                 <Select
@@ -302,6 +323,29 @@ export default function AddProduct() {
                   <MenuItem value={"Digital"}>Digital</MenuItem>
                 </Select>
                 {errors.medium?.type === 'required' && <span>* Add the medium of your Art piece</span>}
+              </FormControl>
+            </Grid>
+            <Grid xs={12} sm={3}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="materiallabel">&nbsp;&nbsp;Material</InputLabel>
+                <Select
+                  {...register("material", { required: true})}
+                  labelId="material"
+                  id="material"
+                  name="material"
+                  variant="outlined"
+                  label="Material"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"Paper"}>Paper</MenuItem>
+                  <MenuItem value={"Cardboard"}>Cardboard</MenuItem>
+                  <MenuItem value={"Canvas"}>Canvas</MenuItem>
+                  <MenuItem value={"Wood"}>Wood</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
+                </Select>
+                {errors.material?.type === 'required' && <span>* Add the material of your Art piece</span>}
               </FormControl>
             </Grid>
             <Grid item xs={12}>
@@ -404,6 +448,7 @@ export default function AddProduct() {
             autoClose={8000}
             transition="bounce"
             draggable
+            onClick={handleClick}
           />
         </form>
       </div>

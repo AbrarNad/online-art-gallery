@@ -1,9 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import Products from '../../Products/ProductsBootstrap.jsx';
 import Axios from "axios";
-import SignUp from '../users/user/register.js';
-import SignIn from '../users/user/login.js';
-import AddProduct from '../../Products/add.js';
 import JumbotronExample from '../../Jumbo/jumbo.js';
 import Checkbox from '../../Checkbox/checkbox.js';
 
@@ -60,7 +57,7 @@ const Search = () => {
     Axios({
         method: "GET",
         withCredentials: true,
-        url:"http://localhost:4000/products/category/Drawings"      //this is API url
+        url: urlString      //this is API url
     }).then((res)=>{
         //console.log(res.data);
         const {data} = res;
@@ -108,6 +105,9 @@ const Search = () => {
   return (
       <div>
           <JumbotronExample/>
+          <div>
+            <b><h4 className="text-center">Showing results for "{queryStrVal[1]}"</h4></b>
+          </div>
           <div className="container">
             <div className="row">
                 <div className="col-2">

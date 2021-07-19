@@ -8,14 +8,13 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Link } from '@material-ui/core';
 import './popup.css';
-import ControlledCarousel from '../../Carousel/Carousel';
 
 
 const history = createBrowserHistory({forceRefresh:true});
 
 
 
-const Drawings = () => {
+const Paintings = () => {
     const [products, setProducts] = useState([]);
     const [productsClone, setProdClone] = useState([]);
 
@@ -29,7 +28,7 @@ const Drawings = () => {
         Axios({
             method: "GET",
             withCredentials: true,
-            url:"http://localhost:4000/products/category/Drawings"      //this is API url
+            url:"http://localhost:4000/products/category/Paintings"      //this is API url
         }).then((res)=>{
             //console.log(res.data);
             const {data} = res;
@@ -42,7 +41,7 @@ const Drawings = () => {
         Axios({
             method: "GET",
             withCredentials: true,
-            url:"http://localhost:4000/products/category/Drawings"      //this is API url
+            url:"http://localhost:4000/products/category/Paintings"      //this is API url
         }).then((res)=>{
             //console.log(res.data);
             const {data} = res;
@@ -59,45 +58,15 @@ const Drawings = () => {
         getProductClone();
     },[products] );
 
+
     constantProduct = JSON.parse(JSON.stringify(productsClone));
-
-
     if(location.search !== ""){
-        history.push("/Drawings");
+        history.push("/Paintings");
     }
-    /* var str = location.search;
-    str = str.slice(1, str.length);
-    console.log(str);
-    var myArray = str.split("&");
-    console.log(myArray);
-
-    var newArray = products.filter(function (el) {
-        var ret = true;
-        for(let i = 0; i < myArray.length; i++){
-            var myNewArray = myArray[i].split("=");
-            console.log(myNewArray);
-            if (typeof myNewArray !== 'undefined') {
-                //console.log(el[myNewArray[0]]);
-                ret = ret && el[myNewArray[0]] == myNewArray[1];
-            }
-        }
-        return ret;
-    }); */
+    
 
     return <div>
         <div className="container">
-            {/* <Popup className="my-popup"
-                trigger={open => (
-                    <a className="btn btn-primary rounded-3 btn-light" href="/signup" role="button">button</a>
-                )}
-                position="bottom center"
-                closeOnDocumentClick
-                on = "hover"
-                >
-                <div className="container">
-                    hi i am here but wait hwere are ou df df dfsdf
-                </div>
-            </Popup> */}
             <div className="row">
                 <div className="col-2">
                     <Checkbox products={constantProduct} SettingProducts={setProducts}/>
@@ -111,4 +80,4 @@ const Drawings = () => {
     </div>
 }
 
-export default Drawings;
+export default Paintings;

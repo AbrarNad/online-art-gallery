@@ -3,8 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.css'
 import './Navbar.css';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Link } from "@material-ui/core";
+import { Link, Typography } from "@material-ui/core";
 import { BsFillPersonFill } from "react-icons/bs";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import '../pages/paintings/popup.css';
 
 const Navbar = () => {
 
@@ -29,38 +32,92 @@ const Navbar = () => {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link  dropdown-toggle" href="/Abstract" data-bs-toggle="dropdown">  Photography  </a>
-                <ul class="dropdown-menu">
-                  <div class="container">
-                      {/* <li><h8 class="text-center"><i>By Material</i></h8></li> */}
-                      <li><a class="dropdown-item" href="#"> Modern </a></li>
-                      <li><a class="dropdown-item" href="#"> Digital </a></li>
-                      <li><a class="dropdown-item" href="#"> Minimalist </a></li>
+            <li> 
+              <Popup className="my-popup"
+                  trigger={open => (
+                    <a class="nav-link active" aria-current="page" href="/Drawings">Drawings</a>
+                  )}
+                  position="bottom left"
+                  closeOnDocumentClick
+                  on = "hover"
+                  >
+                  <div className="container">
+                      <div className="row">
+                          <div className="col">
+                              <p>By Style</p>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Fine Art</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Abstract</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Modern</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Street Art</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Pop Art</b> </Link><br/></Typography>                            
+                          </div>
+                          <div className="col">
+                              <p>By Subject</p>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Portrait</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Landscape</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Still Life</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Nature</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Beach</b> </Link><br/></Typography>                            
+                          </div>
+                          <div className="col">
+                              <p>By Material</p>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Paper</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Cardboard</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Canvas</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Wood</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Other</b> </Link><br/></Typography>                            
+                          </div>
+                      </div>
                   </div>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Paintings  </a>
-                <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"> Modern </a></li>
-                <li><a class="dropdown-item" href="#"> Digital </a></li>
-                <li><a class="dropdown-item" href="#"> Minimalist </a></li>
-                </ul>
+              </Popup>
+
             </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link  dropdown-toggle" href="/Drawings" data-bs-toggle="dropdown">  Drawings  </a>
-                <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/Drawings/Material/Wood"> Wood </a></li>
-                <li><a class="dropdown-item" href="/Drawings/Material/Canvas"> Canvas </a></li>
-                <li><a class="dropdown-item" href="/Drawings/Material/Paper"> Paper </a></li>
-                </ul>
+
+            <li> 
+              <Popup className="my-popup"
+                  trigger={open => (
+                    <a class="nav-link active" aria-current="page" href="/Paintings">Paintings</a>
+                  )}
+                  position="bottom left"
+                  closeOnDocumentClick
+                  on = "hover"
+                  >
+                  <div className="container">
+                      <div className="row">
+                          <div className="col">
+                              <p>By Style</p>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Fine Art</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Abstract</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Modern</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Street Art</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Pop Art</b> </Link><br/></Typography>                            
+                          </div>
+                          <div className="col">
+                              <p>By Subject</p>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Portrait</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Landscape</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Still Life</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Nature</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Beach</b> </Link><br/></Typography>                            
+                          </div>
+                          <div className="col">
+                              <p>By Material</p>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Paper</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Cardboard</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Canvas</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Wood</b> </Link><br/></Typography>
+                              <Typography style={{margin: '5px'}}><Link href="/signup" color="inherit"> <b>Other</b> </Link><br/></Typography>                            
+                          </div>
+                      </div>
+                  </div>
+              </Popup>
+
             </li>
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Nature
+                Photography
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#">Action</a></li>

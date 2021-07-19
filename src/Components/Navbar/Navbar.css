@@ -56,3 +56,17 @@ input:-moz-placeholder {
 input::-webkit-input-placeholder {
 	color: #999;
 }
+
+.hover-button .hover-button--on,
+.hover-button:hover .hover-button--off {
+  display: none;
+}
+
+.hover-button:hover .hover-button--on {
+  display: inline;
+}
+
+.vl {
+  border-right: 6px solid green;
+  height: 500px;
+}

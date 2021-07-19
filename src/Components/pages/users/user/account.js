@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,7 +24,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import authService from '../../../../services/authService';
+import { useHistory } from "react-router-dom";
+const Axios = require('axios');
 
 
 
@@ -39,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
+    alignItems: 'center',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -63,11 +68,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Account() {
+  
+  const history = useHistory();
   const classes = useStyles();
+  const [nextpath, setNextPath] = useState("");
   const { register, handleSubmit, formState: { errors }} = useForm();
+  const [userData, setUserData] = useState([]);
+  const urlString = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
+  const getUserData = () => {
+      Axios({
+          method: "GET",
+          withCredentials: true,
+          url: urlString,    //this is API url
+      }).then((res)=>{
+          //alert(JSON.stringify(res.data));
+          const {data} = res;
+          setUserData((data));
+      })
+  }
+  
+  function handleClick() {
+    //alert(nextpath);
+    history.push(nextpath);
+  }
+
+  function handleLogout(){
+    localStorage.removeItem('userid');
+    localStorage.removeItem('token');
+    localStorage.removeItem('isArtist');
+    localStorage.removeItem('role');
+    history.push("/signin");
+  }
+  //alert(userData);
+  useEffect(()=>{
+      getUserData();
+  },[] );
+  
+  //alert(JSON.stringify(userData));
+
   const [submitting, setSubmitting] = useState(false);
-  const notify = () => toast.success("New product added!");
-  const notifyUser = () => toast.success("New User Created!");
   const notifyArtist = () => toast.success("New Artist Created!");
   const ListStyle = {
     width: '100%',
@@ -80,27 +119,22 @@ export default function Account() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <UpdateOutlinedIcon color='inherit'/>
+          <AccountCircleIcon color='inherit'/>
         </Avatar>
-        <form className={classes.form} onSubmit={handleSubmit(async (formData)=> {
+        <form 
+        className={classes.form} 
+        onSubmit={handleSubmit(async (formData)=> {
 
             //alert(JSON.stringify(formData));
             
 
-              const response = await fetch("http://localhost:4000/artists",{
-                method: "POST",
+              const response = await fetch("http://localhost:4000/users",{
+                method: "GET",
                 headers: {
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/json",
+                  "x-auth-token": authService.getJWT()
                 },
                 body: JSON.stringify({
-                  Name: formData.name,
-                  Email: formData.email,
-                  Address: formData.address,
-                  Password: formData.password,
-                  Location: formData.location,
-                  Username: formData.username,
-                  Bio: formData.bio,
-                  Education: formData.education,
                 }),
               });
             
@@ -140,6 +174,7 @@ export default function Account() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.button}  
+                                onClick={handleLogout}
                             >
                                 Logout
                             </Button>
@@ -157,8 +192,108 @@ export default function Account() {
                 <Grid 
                     item xs={12}
                 >
-                    <Typography component="h2" variant="h5">
+                    <Typography component="h2" variant="h4">
                         Basic Details
+                    </Typography>
+                </Grid>
+                <Grid 
+                    item xs={12}
+                    container
+                    spacing={1}
+                >
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Name: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Name} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Username: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Username} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Email Address: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Email} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Address: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Address} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Location: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Location} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Role: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Role} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    
+                    
+                </Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={12}>
+                  <Avatar className={classes.avatar}>
+                    <UpdateOutlinedIcon color='inherit'/>
+                  </Avatar>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography component="h2" variant="h4">
+                        Update Details
                     </Typography>
                 </Grid>
                 <Grid 
@@ -172,7 +307,6 @@ export default function Account() {
                         fullWidth
                         id="name"
                         label="Name"
-                        autoFocus
                     />
                     {errors.name?.type === 'required' && "* Name is required"}
                     {errors.name && errors.name.type === "maxLength" && <span>* Maximum allowed length exceeded(30)</span> }
