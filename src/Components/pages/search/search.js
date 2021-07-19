@@ -17,8 +17,10 @@ const history = createBrowserHistory({forceRefresh:true});
 const Search = () => {
   const [products, setProducts] = useState([]);
   const [productsClone, setProdClone] = useState([]);
+  const [user, setUser] = useState({});
   
   const urlString = "http://localhost:4000/products/";
+  const urlStringUser = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
   var constantProduct;
 
   
@@ -74,6 +76,23 @@ const Search = () => {
     getProductClone();
   },[products] );
 
+  const getUser = () => {
+    Axios({
+        method: "GET",
+        withCredentials: true,
+        url: urlStringUser    //this is API url
+    }).then((res)=>{
+        console.log(res.data);
+        const {data} = res;
+        setUser(data);
+        console.log(user);
+    })
+  }
+
+  useEffect(()=>{
+      getUser();
+  },[] );
+
   constantProduct = JSON.parse(JSON.stringify(productsClone));
   console.log(constantProduct);
 
@@ -114,7 +133,7 @@ const Search = () => {
                     <Checkbox products={constantProduct} SettingProducts={setProducts}/>
                 </div>
                 <div className="col">
-                    <Products productData={newArray} flag={1}/>
+                    <Products productData={newArray} user={user} setUser={setUser} flag={1}/>
                 </div>
             </div>
         </div>

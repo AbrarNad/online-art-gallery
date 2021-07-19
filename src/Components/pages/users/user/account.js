@@ -162,7 +162,7 @@ export default function Account() {
                         </ListItem>
                         <Divider orientation="vertical"/>
                         <Divider/>
-                        <ListItem button component="a" href="#">
+                        <ListItem button component="a" href="/user/favorites">
                             <ListItemIcon>
                                 <FavoriteIcon/>
                             </ListItemIcon>

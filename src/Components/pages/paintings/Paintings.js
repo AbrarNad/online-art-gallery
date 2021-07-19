@@ -17,9 +17,12 @@ const history = createBrowserHistory({forceRefresh:true});
 const Paintings = () => {
     const [products, setProducts] = useState([]);
     const [productsClone, setProdClone] = useState([]);
+    const [user, setUser] = useState({});
 
     var constantProduct;
     let location = useLocation();
+    const urlStringUser = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
+
     /* console.log(location);
     console.log(location.search);
     console.log(typeof(location.search)); */
@@ -58,6 +61,23 @@ const Paintings = () => {
         getProductClone();
     },[products] );
 
+    const getUser = () => {
+        Axios({
+            method: "GET",
+            withCredentials: true,
+            url: urlStringUser    //this is API url
+        }).then((res)=>{
+            console.log(res.data);
+            const {data} = res;
+            setUser(data);
+            console.log(user);
+        })
+    }
+
+    useEffect(()=>{
+        getUser();
+    },[] );
+
 
     constantProduct = JSON.parse(JSON.stringify(productsClone));
     if(location.search !== ""){
@@ -72,7 +92,7 @@ const Paintings = () => {
                     <Checkbox products={constantProduct} SettingProducts={setProducts}/>
                 </div>
                 <div className="col">
-                    <Products productData={products} flag={1}/>
+                    <Products productData={products} user={user} setUser={setUser} flag={1}/>
                 </div>
             </div>
         </div>

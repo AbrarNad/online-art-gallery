@@ -1,13 +1,13 @@
 import React,{ useState, useEffect} from 'react';
-import Products from './../Products/ProductsBootstrap';
+import Products from '../../../Products/ProductsBootstrap.jsx';
 import Axios from "axios";
-import SignUp from './users/user/register.js';
-import SignIn from './users/user/login.js';
-import AddProduct from '../Products/add.js';
-import JumbotronExample from '../Jumbo/jumbo.js';
+import SignUp from './register.js';
+import SignIn from './login.js';
+import AddProduct from '../../../Products/add.js';
+import JumbotronExample from '../../../Jumbo/jumbo.js';
 
 
-const Home = () => {
+const Favorites = () => {
     const [products, setProducts] = useState([]);
     const [user, setUser] = useState({});
 
@@ -48,27 +48,20 @@ const Home = () => {
         getUser();
     },[] );
 
-    const productList = [];
-    for(let i = 1; i <= 3; i++){
-        var newArray = products.filter(function (el) {
-            return el.Roomid === i;
-        });
-        productList.push(<div>
-            <Products productData = {newArray} user={user} setUser={setUser}/>
-            <hr/>
-        </div>);
+    var newArray = [];
+    if(typeof user.Favorites!== 'undefined'){
+      newArray = products.filter(function (el) {
+        console.log(typeof(el._id));
+        console.log(user.Favorites.includes(el._id));
+        return user.Favorites.includes(el._id);
+      });
     }
-    
-    
-    
+ 
 
     return (
         <div>
             <JumbotronExample/>
-            {productList}
-            <SignUp/>
-            <SignIn/>
-            <AddProduct/>
+            <Products productData = {newArray} user={user} setUser={setUser}/>
         </div>
     );
 
@@ -88,4 +81,4 @@ const Home = () => {
     ); */
 }
 
-export default Home;
+export default Favorites;

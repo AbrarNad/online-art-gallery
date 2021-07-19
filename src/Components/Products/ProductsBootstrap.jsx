@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from '@material-ui/core';
+import authService from '../../services/authService';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,13 +78,105 @@ function ProductImage( {image} ){
   );
 }
 
-function ProductDescription( {description, handleExpandClick, expanded, price, artist, ID, user, setUser} ){
+function ProductDescription( {description, handleExpandClick, expanded, price, artist, ID, user, setUser, favColor, setFavColor
+                            ,cartColor, setCartColor} ){
   const classes = useStyles();
-  function favIconClickHandle(){
+
+  //const s = 'Gray';
+  if(typeof user.Favorites !== 'undefined'){
     if(user.Favorites.includes(ID)){
-      
+      setFavColor('red');
+    }
+    else {
+      setFavColor('Gray');
     }
   }
+
+  if(typeof user.Cart !== 'undefined'){
+    if(user.Cart.includes(ID)){
+      setCartColor('red');
+    }
+    else {
+      setCartColor('Gray');
+    }
+  }
+
+  async function favIconClickHandle(){
+    if(typeof user.Favorites !== 'undefined'){
+      if(!user.Favorites.includes(ID)){
+          setFavColor('red');
+          user.Favorites.push(ID);
+        }
+        else{
+          setFavColor('Gray');
+          user.Favorites = user.Favorites.filter( (prodId)=> {
+            return prodId != ID;
+          })
+          setUser(user);
+        }
+        const response = await fetch(`http://localhost:4000/users/${localStorage.getItem('userid')}`,{
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": authService.getJWT(),
+          },
+          body: JSON.stringify({
+            Name: user.name,
+            Email: user.email,
+            Address: user.address,
+            Password: user.password,
+            Location: user.location,
+            Username: user.username,
+            Favorites: user.Favorites,
+          }),
+        });
+        const data = await response.json();
+        console.log(data);
+      }
+      else{
+        alert('You are not be logged in probably');
+      }
+    }
+
+  async function cartIconHandleClick(){
+    if(typeof user.Cart !== 'undefined'){
+      if(!user.Cart.includes(ID)){
+          setCartColor('red');
+          user.Cart.push(ID);
+          setUser(user);
+        }
+        else{
+          setCartColor('Gray');
+          user.Cart = user.Cart.filter( (prodId)=> {
+            return prodId != ID;
+          })
+          setUser(user);
+        }
+        const response = await fetch(`http://localhost:4000/users/${localStorage.getItem('userid')}`,{
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": authService.getJWT(),
+          },
+          body: JSON.stringify({
+            Name: user.name,
+            Email: user.email,
+            Address: user.address,
+            Password: user.password,
+            Location: user.location,
+            Username: user.username,
+            Favorites: user.Favorites,
+            Cart: user.Cart,
+          }),
+        });
+        const data = await response.json();
+        console.log(data);
+      }
+      else{
+        alert('You are not be logged in probably');
+      }
+    }
+  
   return (
     <div>
       <CardContent>
@@ -93,10 +186,14 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" style={{color: 'red'}}>
+        <IconButton aria-label="add to favorites" 
+                    style={{color: favColor}}
+                    onClick={favIconClickHandle}>
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="add to cart">
+        <IconButton aria-label="add to cart"
+                    onClick={cartIconHandleClick}
+                    style={{color: cartColor}}>
           <AddShoppingCartIcon/>
         </IconButton>
         <IconButton
@@ -134,11 +231,14 @@ function ProductDescription( {description, handleExpandClick, expanded, price, a
 
 function Product({ product, user, setUser }){
 
+  console.log(user);
   const name = product.Product, image = product.images[0], description = product.Description, price = product.Price,
   ID = product._id;
   const artist = product.Artist;
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [favColor, setFavColor] = React.useState("Gray");
+  const [cartColor, setCartColor] = React.useState("Gray");
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -162,12 +262,17 @@ function Product({ product, user, setUser }){
                           ID = {ID}
                           user = {user}
                           setUser = {setUser}
+                          favColor = {favColor}
+                          setFavColor = {setFavColor}
+                          cartColor = {cartColor}
+                          setCartColor = {setCartColor}
       />
     </Card>
   );
 }
 
 function Products({ productData, user, setUser, flag }){
+  console.log(user);
 
   /* if(productData.length == 0) return (
     <div>
@@ -180,13 +285,13 @@ function Products({ productData, user, setUser, flag }){
     if(flag === 1){
       return (
         <div className="col-lg-4 col-md-6 col-sm-12" style={{marginTop:'10px'}}>
-          <Product product={product} key = {i} user={user} setUser={setUser}/>
+          <Product product={product} user={user} setUser={setUser} key = {i}/>
         </div>
       );
     }
     return (
       <div className="col-lg-3 col-md-4 col-sm-6" style={{marginTop:'10px'}}>
-        <Product product={product} key = {i}/>
+        <Product product={product} user={user} setUser={setUser} key = {i}/>
       </div>
     );
     /* return (

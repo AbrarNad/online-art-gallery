@@ -23,6 +23,8 @@ import NavbarSearch from './Components/Navbar/NavbarSearch';
 import Search from './Components/pages/search/search';
 import Paintings from './Components/pages/paintings/Paintings';
 import ControlledCarousel from './Components/Carousel/Carousel';
+import Favorites from './Components/pages/users/user/favorites';
+
 const history = createBrowserHistory({forceRefresh:true});
 
 const App = () => {
@@ -45,6 +47,7 @@ const App = () => {
                     <Route path="/addprod" component={AddProduct}/>
                     <Route path="/Tags/:tag" component={Tag}/>
                     <Route path="/user/account" component={Account}/>
+                    <Route path="/user/favorites" component={Favorites}/>
                     <Route path="/search" component={Search}/>
             </Router>
         </div>
