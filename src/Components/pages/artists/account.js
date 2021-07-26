@@ -26,7 +26,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import authService from '../../../../services/authService';
+import ArtTrackIcon from '@material-ui/icons/ArtTrack';
+import authService from '../../../services/authService';
 import { useHistory } from "react-router-dom";
 const Axios = require('axios');
 
@@ -107,7 +108,7 @@ export default function Artist_Account() {
   //alert(JSON.stringify(userData));
 
   const [submitting, setSubmitting] = useState(false);
-  const notifyArtist = () => toast.success("New Artist Created!");
+  const notifyArtist = () => toast.success("Updated!");
   const ListStyle = {
     width: '100%',
     maxWidth: 360,
@@ -128,7 +129,7 @@ export default function Artist_Account() {
             //alert(JSON.stringify(formData));
             
 
-              const response = await fetch("http://localhost:4000/users",{
+              const response = await fetch("http://localhost:4000/artists",{
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
@@ -139,8 +140,8 @@ export default function Artist_Account() {
               });
             
               const data = await response.json();
-              //alert(JSON.stringify((data)));
-              notifyArtist();
+              alert(JSON.stringify((data)));
+              //notifyArtist();
 
             setSubmitting(false);
 
@@ -153,8 +154,8 @@ export default function Artist_Account() {
                 xs={3}
             >
                 <Grid item xs={12}>
-                    <List sx={ListStyle} component="nav" aria-label="user navigation">
-                        <ListItem button component="a" href="/user/account">
+                    <List sx={ListStyle} component="nav" aria-label="artist navigation">
+                        <ListItem button component="a" href="/artist/account">
                             <ListItemIcon>
                                 <InfoIcon/>
                             </ListItemIcon>
@@ -162,11 +163,11 @@ export default function Artist_Account() {
                         </ListItem>
                         <Divider orientation="vertical"/>
                         <Divider/>
-                        <ListItem button component="a" href="#">
+                        <ListItem button component="a" href="/artist/artworks">
                             <ListItemIcon>
-                                <FavoriteIcon/>
+                                <ArtTrackIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Favorites" />
+                            <ListItemText primary="Artworks" />
                         </ListItem>
                         <Divider/> 
                         <ListItem button>
@@ -279,6 +280,32 @@ export default function Artist_Account() {
                       </Typography>
                       <Divider/>
                     </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Education: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Education} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h6">
+                          Biography: 
+                      </Typography>
+                      <Divider/>
+                      <Divider orientation="vertical"/>
+                    </Grid>
+                    <Grid item xs ={6}>
+                      <Typography component="h1" variant="h5">
+                          {userData.Bio} 
+                      </Typography>
+                      <Divider/>
+                    </Grid>
                     
                     
                 </Grid>
@@ -308,7 +335,6 @@ export default function Artist_Account() {
                         id="name"
                         label="Name"
                     />
-                    {errors.name?.type === 'required' && "* Name is required"}
                     {errors.name && errors.name.type === "maxLength" && <span>* Maximum allowed length exceeded(30)</span> }
                     {errors.name && errors.name.type === "pattern" && <span>* Name can only contain alphabets</span> }
                 </Grid>
@@ -324,7 +350,6 @@ export default function Artist_Account() {
                     id="username"
                     label="Username"
                 />
-                {errors.username?.type === 'required' && "* Username is required"}
                 {errors.username && errors.username.type === "maxLength" && <span>* Maximum allowed length exceeded(20)</span> }
                 {errors.username && errors.username.type === "pattern" && <span>* Username can only contain alphanumeric characters and underscore(_)</span> }
                 </Grid>
@@ -340,7 +365,6 @@ export default function Artist_Account() {
                     name="email"
                     autoComplete="email"
                 />
-                {errors.email?.type === 'required' && "* Email is required"}
                 {errors.email && errors.email.type === "maxLength" && <span>* Maximum allowed length exceeded(40)</span> }
                 {errors.email && errors.email.type === "pattern" && <span>* Invalid Email</span> }
                 </Grid>
@@ -390,8 +414,38 @@ export default function Artist_Account() {
                     label="Address"
                     rows={2}
                 />
-                {errors.address?.type === 'required' && "* Address is required"}
                 {errors.address && errors.address.type === "maxLength" && <span>* Maximum allowed length exceeded(200)</span> }
+                </Grid>
+                <Grid 
+                    item xs={12}
+                >
+                <TextField
+                    multiline
+                    autoComplete="education"
+                    {...register("education", { required: false, maxLength: 300 })}
+                    name="education"
+                    variant="outlined"
+                    fullWidth
+                    id="education"
+                    label="Education"
+                    rows={2}
+                />
+                {errors.education && errors.education.type === "maxLength" && <span>* Maximum allowed length exceeded(300)</span> }
+                </Grid>
+                <Grid item xs={12} >
+                    <TextField
+                    multiline
+                    autoComplete="bio"
+                    {...register("bio", { required: false, minLength: 128, maxLength: 500 })}
+                    name="bio"
+                    variant="outlined"
+                    fullWidth
+                    id="bio"
+                    label="Biography"
+                    rows={3}
+                    />
+                    {errors.bio && errors.bio.type === "minLength" && <span>* Minimum allowed length is 128 characters!</span> }
+                    {errors.bio && errors.bio.type === "maxLength" && <span>* Maximum allowed length exceeded(500)</span> }
                 </Grid>
                 <Grid 
                     item xs={12}
