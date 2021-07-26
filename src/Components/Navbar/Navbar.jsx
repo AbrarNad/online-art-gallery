@@ -41,6 +41,7 @@ const Navbar = () => {
                         <a className="btn btn-primary btn-light" href="/signin" role="button">Sign In</a>
                         <a className="btn btn-primary btn-light" href="/addprod" role="button">Add Product</a>
                         <a className="btn btn-primary btn-light" href="/admin/dashboard" role="button">Admin Dashboard</a>
+                        <a className="btn btn-primary btn-light" href="/curator/dashboard" role="button">Curator Dashboard</a>
                         
                     </div>
                     <div className={classes.button}>

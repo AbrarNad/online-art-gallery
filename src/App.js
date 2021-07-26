@@ -19,6 +19,7 @@ import { Container } from 'react-bootstrap';
 import ProductDetail from './Components/pages/ProductDetail';
 import Account from './Components/pages/users/user/account';
 import Admin_Dashboard from './Components/pages/admin/dashboard';
+import Curator_Dashboard from './Components/pages/curator/dashboard';
 
 const App = () => {
 
@@ -38,6 +39,7 @@ const App = () => {
                         <Route path="/addprod" component={AddProduct}/>
                         <Route path="/user/account" component={Account}/>
                         <Route path="/admin/dashboard" component={Admin_Dashboard}/>
+                        <Route path="/curator/dashboard" component={Curator_Dashboard}/>
                     </Switch>
             </Router>
         </div>
