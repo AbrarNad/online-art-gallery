@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -80,6 +80,7 @@ export default function AddProduct() {
   const [files, setFiles] = useState(null);
   const [fileError, setFileError] = useState(null);
   const[tags, setTags] = useState(["art"]);
+
   const addTag = (e) => {
     if (e.key === "Enter") {
       if (e.target.value.length > 0) {
@@ -97,6 +98,25 @@ export default function AddProduct() {
     //alert(nextpath);
     history.push(nextpath);
   }
+
+  function handleLogout(){
+    localStorage.removeItem('userid');
+    localStorage.removeItem('token');
+    localStorage.removeItem('isArtist');
+    localStorage.removeItem('role');
+    history.push("/signin");
+  }
+
+  function verifyArtist() {
+    if(localStorage.getItem("role") != "artist"){
+      handleLogout();
+    }
+    //history.push(nextpath);
+  }
+
+  useEffect(()=>{
+      verifyArtist();
+  },[] );
 
   const changeImageHandler = (e) => {
     let selected = e.target.files[0];
@@ -155,6 +175,7 @@ export default function AddProduct() {
                     images : imageurls,
                     Roomid: 1,
                     Tags: tags,
+                    ArtistID: localStorage.getItem("userid"),
                   }),
                 });
               

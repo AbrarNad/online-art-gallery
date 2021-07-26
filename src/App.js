@@ -20,6 +20,7 @@ import ProductDetail from './Components/pages/ProductDetail';
 import Account from './Components/pages/users/user/account';
 import Admin_Dashboard from './Components/pages/admin/dashboard';
 import Curator_Dashboard from './Components/pages/curator/dashboard';
+import Artist_Account from './Components/pages/artists/account';
 
 const App = () => {
 
