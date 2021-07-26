@@ -145,7 +145,7 @@ export default function SignUp() {
               });
               
               const data = await response.json();
-              alert(JSON.stringify((data)));
+              //alert(JSON.stringify((data)));
               //console.log(isArtist);
               if(data.message==='user successfully created' ){
                 authService.uiLogin(data.token);

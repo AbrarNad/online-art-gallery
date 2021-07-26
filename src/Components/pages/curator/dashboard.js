@@ -29,6 +29,8 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import authService from '../../../services/authService';
 import { useHistory } from "react-router-dom";
+import JumbotronExample from '../../Jumbo/jumbo';
+import Products from '../../Products/Products';
 const Axios = require('axios');
 
 
@@ -76,28 +78,32 @@ export default function Curator_Dashboard() {
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [products, setProducts] = useState([]);
   const [productFound, setProductFound] = useState(false);
-  const [productNames, setProductNames] = useState("");
+  const [roomid, setRoomid] = useState("");
   
   
   const getProducts = (productNames) => {
-        const urlString = `http://localhost:4000/products/productname/${productNames}`;
+        const urlString = `http://localhost:4000/products/room/1`;
 
         Axios({
             method: "GET",
             withCredentials: true,
             url: urlString    //this is API url
         }).then((res)=>{
-            alert(JSON.stringify(res));
-        //   const {data} = res;
-        //   if(data.message != "no products found"){
-        //     setProductFound(true);
-        //     setProducts(data);
-        //   }else{
-        //     setProductFound(false);
-        //     setProducts(data);
-        //   }
+            //alert(JSON.stringify(res));
+          const {data} = res;
+          if(data.message != "no products found"){
+            setProductFound(true);
+            setProducts(data);
+          }else{
+            setProductFound(false);
+            setProducts(data);
+          }
         })
     }
+
+  useEffect(()=>{
+      getProducts();
+  },[] );
 
   function handleClick() {
     history.push(nextpath);
@@ -123,84 +129,32 @@ export default function Curator_Dashboard() {
   };
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <SupervisorAccountIcon color='inherit'/>
         </Avatar>
-        <form 
-        className={classes.form} 
-        onSubmit={handleSubmit(async (formData)=> {
-            setSubmitting(true);
-            //setUserName(formData.username);
-            //alert(JSON.stringify({username:userName}));
-            getProducts(productNames);
-            
-            //const data = await fetchData.json();
-
-            //alert(JSON.stringify(fetchData));
-            //alert(JSON.stringify(userName));
-            //alert(JSON.stringify(userData));
-            setSubmitting(false);
-
-
-          })}>
-          <Grid container spacing={2}>
-            <Grid item
-                container
-                spacing={2}
-                xs={12}
-                justifyContent="space-between"
-            >
-                <Grid item xs={12}>
-                    <Typography component="h2" variant="h4">
-                        Search Art by name
-                    </Typography>
-                </Grid>
-                <Grid 
-                    item xs={12}
-                >
-                <TextField
-                    name="productnames"
-                    variant="outlined"
-                    fullWidth
-                    id="productnames"
-                    label="Enter Art Name"
-                    onChange={(e) => setProductNames(e.target.value)}
-                />
-                </Grid>
-
-                <Grid 
-                    item xs={12}
-                >
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        disabled={submitting}
-                    >
-                        Search
-                    </Button>
-                </Grid>
-            </Grid>
-          </Grid>
-
-        </form>
-        <Grid xs={12} container className={classes.conditional}>
+        <Grid item xs={12}>
+          <Typography component="h1" variant="h6">
+            Unassigned Art pieces
+          </Typography>
+        </Grid>
+        <Grid item xs={12} container className={classes.conditional}>
             {
               (productFound)?(
                 <>
-                    
+                  <div>
+                      <Products products = {products}/>
+                      <hr/>
+                  </div>
                 </>
               ):
               ( 
                 <>
                     <Grid item xs ={6}>
                       <Typography component="h1" variant="h6">
-                          No Art pieces found
+                          No Unassigned Art pieces available
                       </Typography>
                       <Divider/>
                     </Grid>

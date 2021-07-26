@@ -232,7 +232,7 @@ export default function AddProduct() {
                 fullWidth
                 type="number"
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">৳</InputAdornment>,
+                  endAdornment: <InputAdornment position="end">$</InputAdornment>,
                 }}
                 id="price"
                 label="Asking Price"

@@ -111,7 +111,7 @@ export default function Admin_Dashboard() {
   const [submitting, setSubmitting] = useState(false);
   const [submitting2, setSubmitting2] = useState(false);
   const notifyAdmin = () => toast.success("User Updated!");
-  const notifyAdminFailed = () => toast.success("User Update Failed!");
+  const notifyAdminFailed = () => toast.error("User Update Failed!");
   const notifyAuthError = () => toast.error("Authorization Failed!");
   const ListStyle = {
     width: '100%',
