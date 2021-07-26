@@ -102,7 +102,7 @@ export default function SignIn() {
             //alert(JSON.stringify(formData));
             
 
-              const response = await fetch("http://localhost:4000/artists/login",{
+              const response = await fetch("http://localhost:4000/users/login",{
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
@@ -120,8 +120,8 @@ export default function SignIn() {
               if(data.message==='welcome' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
-                localStorage.setItem("role", data.artist.Role);
-                localStorage.setItem("userid", data.artist._id);
+                localStorage.setItem("role", data.user.Role);
+                localStorage.setItem("userid", data.user._id);
                 setSubmitting(false);
                 history.push("/");
                 //setNextPath("/");
