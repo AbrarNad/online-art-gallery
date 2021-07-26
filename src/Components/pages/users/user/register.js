@@ -86,7 +86,7 @@ export default function SignUp() {
             //alert(JSON.stringify(formData));
             
 
-              const response = await fetch("http://localhost:4000/artists",{
+              const response = await fetch("http://localhost:4000/users",{
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
@@ -100,6 +100,7 @@ export default function SignUp() {
                   Username: formData.username,
                   Bio: formData.bio,
                   Education: formData.education,
+                  Role: "artist",
                 }),
               });
             
@@ -107,11 +108,11 @@ export default function SignUp() {
               //alert(JSON.stringify((data)));
               //console.log(isArtist);
               //notifyArtist();
-              if(data.message==='successfully created' ){
+              if(data.message==='user successfully created' ){
                 authService.uiLogin(data.token);
                 localStorage.setItem("isArtist", true);
-                localStorage.setItem("role", data.artist.Role);
-                localStorage.setItem("userid", data.artist._id);
+                localStorage.setItem("role", data.user.Role);
+                localStorage.setItem("userid", data.user._id);
                 notifyArtist();
                 setSubmitting(false);
                 //history.push("/");
@@ -141,6 +142,7 @@ export default function SignUp() {
                   Password: formData.password,
                   Location: formData.location,
                   Username: formData.username,
+                  Role: "basic"
                 }),
               });
               

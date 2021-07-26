@@ -75,7 +75,7 @@ export default function Artist_Account() {
   const [nextpath, setNextPath] = useState("");
   const { register, handleSubmit, formState: { errors }} = useForm();
   const [userData, setUserData] = useState([]);
-  const urlString = `http://localhost:4000/artists/${localStorage.getItem('userid')}`;
+  const urlString = `http://localhost:4000/users/${localStorage.getItem('userid')}`;
   const getUserData = () => {
       Axios({
           method: "GET",
@@ -129,7 +129,7 @@ export default function Artist_Account() {
             //alert(JSON.stringify(formData));
             
 
-              const response = await fetch("http://localhost:4000/artists",{
+              const response = await fetch("http://localhost:4000/users",{
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default function Artist_Account() {
               });
             
               const data = await response.json();
-              alert(JSON.stringify((data)));
+              //alert(JSON.stringify((data)));
               //notifyArtist();
 
             setSubmitting(false);
