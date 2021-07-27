@@ -22,6 +22,8 @@ import Admin_Dashboard from './Components/pages/admin/dashboard';
 import Curator_Dashboard from './Components/pages/curator/dashboard';
 import Artist_Account from './Components/pages/artists/account';
 import Artworks from './Components/pages/artists/artworks';
+import User_Orders from './Components/pages/users/user/orders';
+import Order from './Components/Orders/Order/Order';
 
 const App = () => {
 
@@ -42,6 +44,8 @@ const App = () => {
                         <Route path="/user/account" component={Account}/>
                         <Route path="/artist/account" component={Artist_Account}/>
                         <Route path="/artist/artworks" component={Artworks}/>
+                        <Route path="/orders/:orderid" component={Order}/>
+                        <Route path="/orders" component={User_Orders}/>
                         <Route path="/admin/dashboard" component={Admin_Dashboard}/>
                         <Route path="/curator/dashboard" component={Curator_Dashboard}/>
                     </Switch>

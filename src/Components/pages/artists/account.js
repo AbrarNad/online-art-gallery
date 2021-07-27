@@ -29,6 +29,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import authService from '../../../services/authService';
 import { useHistory } from "react-router-dom";
+import ListAltIcon from '@material-ui/icons/ListAlt';
+
 const Axios = require('axios');
 
 
@@ -168,6 +170,13 @@ export default function Artist_Account() {
                                 <ArtTrackIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Artworks" />
+                        </ListItem>
+                        <Divider/>  
+                        <ListItem button component="a" href="/orders">
+                            <ListItemIcon>
+                                <ListAltIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Order history" />
                         </ListItem>
                         <Divider/> 
                         <ListItem button>

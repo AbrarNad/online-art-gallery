@@ -45,7 +45,7 @@ const Navbar = () => {
                         
                     </div>
                     <div className={classes.button}>
-                        <IconButton   href={localStorage.getItem("role")=="artist"? "artist/account": "user/account"} aria-label="User Account" color="inherit">
+                        <IconButton   href={localStorage.getItem("role")=="artist"? "/artist/account": "/user/account"} aria-label="User Account" color="inherit">
                             <Avatar>U</Avatar>
                         </IconButton>
                     </div>

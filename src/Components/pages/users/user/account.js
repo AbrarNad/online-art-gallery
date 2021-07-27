@@ -28,6 +28,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import authService from '../../../../services/authService';
 import { useHistory } from "react-router-dom";
+import ListAltIcon from '@material-ui/icons/ListAlt';
 const Axios = require('axios');
 
 
@@ -167,6 +168,13 @@ export default function Account() {
                                 <FavoriteIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Favorites" />
+                        </ListItem>
+                        <Divider/> 
+                        <ListItem button component="a" href="/orders">
+                            <ListItemIcon>
+                                <ListAltIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Order history" />
                         </ListItem>
                         <Divider/> 
                         <ListItem button>
